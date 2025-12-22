@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
@@ -34,7 +34,6 @@ const Header = () => {
 
     return (
         <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-50">
-            {/* Logo */}
             <div className="flex items-center gap-2 z-50">
                 <img src="/logo.png" alt="Vortix Logo" className="w-8 h-8 object-contain" />
                 <Link to="/dashboard" className="text-xl font-bold text-primary tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
@@ -42,7 +41,6 @@ const Header = () => {
                 </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-8">
                 {navLinks.map((link) => (
                     <Link
@@ -56,9 +54,7 @@ const Header = () => {
                 ))}
             </nav>
 
-            {/* Desktop Right Side Actions */}
             <div className="hidden md:flex items-center gap-4">
-                {/* Ask VortexAI Button */}
                 <button className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/50 text-orange-500 hover:bg-orange-500/10 transition-colors text-sm font-medium cursor-pointer">
                     <FaRobot />
                     <span>Ask VortexAI</span>
@@ -66,7 +62,6 @@ const Header = () => {
 
                 <div className="w-px h-6 bg-gray-800"></div>
 
-                {/* Profile */}
                 <Link to="/profile" className="flex items-center gap-2">
                     <div className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700 hover:border-primary transition-colors">
                         {user?.photoURL ? (
@@ -78,7 +73,6 @@ const Header = () => {
                 </Link>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button
                 className="md:hidden text-text-muted hover:text-white z-50 cursor-pointer"
                 onClick={toggleMenu}
@@ -86,7 +80,6 @@ const Header = () => {
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
                 <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 md:hidden flex flex-col pt-20 px-6">
                     <nav className="flex flex-col gap-6">

@@ -26,7 +26,7 @@ const Signup = () => {
         e.preventDefault();
         setLoading(true);
         setLocalError('');
-        console.log("1. Starting signup..."); // Debug log
+        console.log("1. Starting signup..."); 
 
         if (password !== confirmPassword) {
             setLocalError("Passwords do not match.");
@@ -41,8 +41,7 @@ const Signup = () => {
         }
 
         try {
-            // Check for unique username
-            console.log("2. Checking username availability..."); // Debug log
+            console.log("2. Checking username availability..."); 
             const q = query(collection(db, "users"), where("username", "==", username));
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
@@ -51,7 +50,7 @@ const Signup = () => {
                 return;
             }
 
-            console.log("3. Creating Firebase auth user..."); // Debug log
+            console.log("3. Creating Firebase auth user..."); 
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
@@ -59,8 +58,7 @@ const Signup = () => {
                 displayName: username
             });
 
-            console.log("4. Saving user to Firestore..."); // Debug log
-            // Create user document in Firestore
+            console.log("4. Saving user to Firestore..."); 
             await setDoc(doc(db, "users", user.uid), {
                 username: username,
                 email: email,
@@ -78,16 +76,12 @@ const Signup = () => {
                 mobile: mobile,
             }));
 
-            console.log("5. Success! Waiting 2 seconds to navigate..."); // Debug log
+            console.log("5. Success! Waiting 2 seconds to navigate..."); 
 
-            // Artificial delay to show success/loading state
             setTimeout(() => {
-                console.log("6. Executing navigation to /dashboard"); // Debug log
+                console.log("6. Executing navigation to /dashboard"); 
                 navigate('/dashboard', { replace: true });
 
-                // SAFETY FALLBACK: If navigation fails (e.g. route doesn't exist), 
-                // stop loading so the user isn't stuck staring at a spinner.
-                // If navigation works, the component unmounts and this line is ignored.
                 setLoading(false);
             }, 2000);
 
@@ -101,7 +95,6 @@ const Signup = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Pulse Background Animation */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
             {loading ? (
