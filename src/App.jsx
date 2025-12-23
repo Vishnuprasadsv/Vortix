@@ -21,7 +21,6 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
-// ProtectedRoute();
 function App() {
   const dispatch = useDispatch();
 
