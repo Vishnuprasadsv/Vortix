@@ -7,6 +7,7 @@ import { setUser, setLoading } from './redux/slices/authSlice';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard'
+import Market from './pages/Market';
 
 
 
@@ -58,6 +59,7 @@ function App() {
             <Dashboard />
           }
         />
+         <Route path="/market" element={<Market />} /> 
 
       </Routes>
     </div>
