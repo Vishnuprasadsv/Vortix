@@ -36,7 +36,16 @@ const Portfolio = () => {
         setIsSellModalOpen(true);
     };
 
-   
+    const handleConfirmSell = (amount) => {
+        if (!selectedAsset) return;
+        const currentPrice = selectedAsset.value / selectedAsset.amount;
+
+        dispatch(sellAsset({
+            id: selectedAsset.id,
+            amount: amount,
+            price: currentPrice
+        }));
+    };
 
     return (
         <Layout>
