@@ -33,10 +33,10 @@ const Header = () => {
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
     return (
-        <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-50">
+        <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-[100]">
             <div className="flex items-center gap-2 z-50">
                 <img src="/logo.png" alt="Vortix Logo" className="w-8 h-8 object-contain" />
-                <Link to="/dashboard" className="text-xl font-bold text-primary tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
+                <Link to="/dashboard" className="text-xl font-bold text-[#FF5F1F] tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
                     VORTIX
                 </Link>
             </div>
@@ -46,7 +46,7 @@ const Header = () => {
                     <Link
                         key={link.name}
                         to={link.path}
-                        className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
+                        className={`text-sm font-medium transition-colors   hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
                             }`}
                     >
                         {link.name}

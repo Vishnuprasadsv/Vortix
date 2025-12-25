@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    totalBalance: 0,
+    totalBalance: 0, 
     assets: [], 
 };
 
@@ -13,6 +13,7 @@ const portfolioSlice = createSlice({
             const { id, symbol, name, amount, price } = action.payload;
             const cost = amount * price;
 
+
             const existingAsset = state.assets.find(asset => asset.id === id);
 
             if (existingAsset) {
@@ -22,6 +23,7 @@ const portfolioSlice = createSlice({
                 existingAsset.amount = newAmount;
                 existingAsset.avgPrice = totalValue / newAmount;
                 existingAsset.value = newAmount * price; 
+            } else {
                 state.assets.push({
                     id,
                     symbol,
@@ -32,20 +34,14 @@ const portfolioSlice = createSlice({
                     color: action.payload.color 
                 });
             }
-
-
-            state.totalBalance += cost;
         },
         updatePortfolioPrices: (state, action) => {
             const currentPrices = action.payload; 
-            let newTotal = 0;
             state.assets.forEach(asset => {
                 if (currentPrices[asset.id]) {
                     asset.value = asset.amount * currentPrices[asset.id];
                 }
-                newTotal += asset.value;
             });
-            state.totalBalance = newTotal;
         },
         sellAsset: (state, action) => {
             const { id, amount, price } = action.payload;
@@ -58,15 +54,19 @@ const portfolioSlice = createSlice({
                 asset.amount -= amount;
                 asset.value = asset.amount * price; 
 
-                state.totalBalance -= saleValue;
+                state.totalBalance += saleValue;
 
                 if (asset.amount <= 0) {
                     state.assets.splice(assetIndex, 1);
                 }
             }
+        },
+        withdrawFunds: (state, action) => {
+            const amount = action.payload;
+            state.totalBalance = Math.max(0, state.totalBalance - amount);
         }
     }
 });
 
-export const { buyAsset, updatePortfolioPrices, sellAsset } = portfolioSlice.actions;
+export const { buyAsset, updatePortfolioPrices, sellAsset, withdrawFunds } = portfolioSlice.actions;
 export default portfolioSlice.reducer;

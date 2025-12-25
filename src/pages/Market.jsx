@@ -17,7 +17,6 @@ const Market = () => {
     const [sortOption, setSortOption] = useState('default');
     const [expandedCoinId, setExpandedCoinId] = useState(null);
 
-    // Buy Modal State
     const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
     const [selectedCoinForBuy, setSelectedCoinForBuy] = useState(null);
 
@@ -31,7 +30,7 @@ const Market = () => {
                 setLoading(false);
             } catch (error) {
                 console.error("Failed to load market data", error);
-                setCoins(LOADING_PLACEHOLDER); // Fallback
+                setCoins(LOADING_PLACEHOLDER); 
                 setLoading(false);
             }
         };
@@ -95,7 +94,6 @@ const Market = () => {
                 animate={{ opacity: 1 }}
                 className="space-y-6"
             >
-                {/* Search and Header */}
                 <div className="flex items-center gap-4 mb-6">
                     <div className="relative flex-1">
                         <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -145,7 +143,6 @@ const Market = () => {
                     </div>
                 </div>
 
-                {/* Market Table Container */}
                 <div className="bg-[#0F1114] border border-gray-800 rounded-xl overflow-hidden p-6">
                     <div className="flex items-center gap-2 mb-6">
                         <div className="w-1 h-6 bg-orange-500 rounded-full"></div>
@@ -156,12 +153,12 @@ const Market = () => {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-left border-b border-gray-800">
-                                    <th className="pb-4 pl-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-16">#</th>
-                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Coin</th>
+                                    <th className="pb-4 pl-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-16 hidden md:table-cell">#</th>
+                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider pl-4 md:pl-0">Coin</th>
                                     <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Price</th>
-                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">24H</th>
-                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">M.Cap</th>
-                                    <th className="pb-4 pr-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-32">Action</th>
+                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right pr-4 md:pr-0">24H</th>
+                                    <th className="pb-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right hidden md:table-cell">M.Cap</th>
+                                    <th className="pb-4 pr-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-32 hidden md:table-cell">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800/50">
@@ -171,8 +168,8 @@ const Market = () => {
                                             className={`group hover:bg-white/5 transition-colors cursor-pointer ${expandedCoinId === coin.id ? 'bg-white/5' : ''}`}
                                             onClick={() => toggleExpand(coin.id)}
                                         >
-                                            <td className="py-4 pl-4 text-gray-500 font-medium text-sm">{index + 1}</td>
-                                            <td className="py-4">
+                                            <td className="py-4 pl-4 text-gray-500 font-medium text-sm hidden md:table-cell">{index + 1}</td>
+                                            <td className="py-4 pl-4 md:pl-0">
                                                 <div className="flex items-center gap-3">
                                                     <img src={coin.image} alt={coin.name} className="w-8 h-8 rounded-full" />
                                                     <div>
@@ -184,13 +181,13 @@ const Market = () => {
                                             <td className="py-4 text-right font-bold text-white text-sm">
                                                 ${coin.current_price.toLocaleString(undefined, { minimumFractionDigits: coin.current_price < 1 ? 4 : 2 })}
                                             </td>
-                                            <td className={`py-4 text-right text-sm font-medium ${(coin.price_change_percentage_24h || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                            <td className={`py-4 text-right text-sm font-medium ${(coin.price_change_percentage_24h || 0) >= 0 ? 'text-green-500' : 'text-red-500'} pr-4 md:pr-0`}>
                                                 {(coin.price_change_percentage_24h || 0) > 0 ? '+' : ''}{(coin.price_change_percentage_24h || 0).toFixed(2)}%
                                             </td>
-                                            <td className="py-4 text-right text-gray-400 text-sm">
+                                            <td className="py-4 text-right text-gray-400 text-sm hidden md:table-cell">
                                                 ${coin.market_cap.toLocaleString()}
                                             </td>
-                                            <td className="py-4 pr-4 text-right">
+                                            <td className="py-4 pr-4 text-right hidden md:table-cell">
                                                 <div className="flex items-center justify-end gap-2">
                                                     <button
                                                         onClick={(e) => handleBuyClick(e, coin)}
@@ -217,31 +214,45 @@ const Market = () => {
                                                         initial={{ opacity: 0, height: 0 }}
                                                         animate={{ opacity: 1, height: 'auto' }}
                                                         exit={{ opacity: 0, height: 0 }}
-                                                        className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8"
+                                                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                                                        className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-hidden"
                                                     >
                                                         <div>
                                                             <h4 className="text-sm font-bold text-white mb-2">About {coin.name}</h4>
                                                             <p className="text-gray-400 text-sm leading-relaxed">
-                                                                {/* CoinGecko market endpoint doesn't always provide description, so fallback */}
                                                                 {coin.name} ({coin.symbol.toUpperCase()}) is a cryptocurrency with a market cap of ${coin.market_cap.toLocaleString()}.
                                                             </p>
                                                         </div>
                                                         <div className="grid grid-cols-2 gap-4">
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">Volume (24h)</div>
-                                                                <div className="text-white font-medium">${coin.total_volume.toLocaleString()}</div>
+                                                                <div className="text-white font-medium break-words">${coin.total_volume.toLocaleString()}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">Circulating Supply</div>
-                                                                <div className="text-white font-medium">{coin.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}</div>
+                                                                <div className="text-white font-medium break-words">{coin.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">24h High</div>
-                                                                <div className="text-green-500 font-medium">${coin.high_24h}</div>
+                                                                <div className="text-green-500 font-medium break-words">${coin.high_24h}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">24h Low</div>
-                                                                <div className="text-red-500 font-medium">${coin.low_24h}</div>
+                                                                <div className="text-red-500 font-medium break-words">${coin.low_24h}</div>
+                                                            </div>
+                                                            <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800 md:hidden col-span-2">
+                                                                <div className="flex justify-between items-center mb-2">
+                                                                    <div className="min-w-0 pr-2">
+                                                                        <div className="text-xs text-text-muted mb-1">Market Cap</div>
+                                                                        <div className="text-white font-medium break-words">${coin.market_cap.toLocaleString()}</div>
+                                                                    </div>
+                                                                    <button
+                                                                        onClick={(e) => handleBuyClick(e, coin)}
+                                                                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-lg shadow-green-500/20 shrink-0"
+                                                                    >
+                                                                        Buy
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </motion.div>

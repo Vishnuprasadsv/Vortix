@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
 import { setUser, setLoading } from './redux/slices/authSlice';
+
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard';
 import Market from './pages/Market';
-
+import Portfolio from './pages/Portfolio';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -22,11 +23,12 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
+
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+   
     console.log("App mounted, setting up auth listener");
     dispatch(setLoading(true));
 
@@ -59,8 +61,10 @@ function App() {
             <Dashboard />
           }
         />
-         <Route path="/market" element={<Market />} /> 
-
+        
+     
+        <Route path="/market" element={<Market />} />
+        <Route path="/portfolio" element={<Portfolio />} />
       </Routes>
     </div>
   );

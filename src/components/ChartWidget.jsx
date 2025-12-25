@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    AreaChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar
+    AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar
 } from 'recharts';
-import { FaExchangeAlt, FaChartBar, FaChartLine, FaChartArea } from 'react-icons/fa';
+import { FaExchangeAlt, FaChartBar, FaChartLine, FaChartArea, FaCog } from 'react-icons/fa';
 import { getCoinData } from '../services/mockData';
 
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
     const [chartData, setChartData] = useState([]);
     const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
     const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+    const [isMobileSettingsOpen, setIsMobileSettingsOpen] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -52,11 +53,11 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
     };
 
-    const getCoinColor = (coin) => coin?.color || '#22c55e'; 
+    const getCoinColor = (coin) => coin?.color || '#22c55e';
 
     const renderChart = () => {
         const primaryColor = '#FF5F1F'; 
-        const secondaryColor = '#ef4444'; 
+        const secondaryColor = '#ef4444';
 
         const commonProps = {
             data: chartData,
@@ -220,8 +221,9 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                     </div>
                 </div>
 
+
                 <div className="flex flex-row items-center gap-4 flex-shrink-0">
-                    <div className="bg-black/40 rounded-lg p-1 flex items-center gap-1">
+                    <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">
                         {['24H', '7D', '30D'].map((tab) => (
                             <button
                                 key={tab}
@@ -232,7 +234,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                             </button>
                         ))}
                     </div>
-                    <div className="flex items-center gap-1 bg-black/40 rounded-lg p-1">
+                    <div className="hidden md:flex items-center gap-1 bg-black/40 rounded-lg p-1">
                         <button
                             onClick={() => setChartType('area')}
                             className={`p-2 rounded cursor-pointer ${chartType === 'area' ? 'bg-[#FF5F1F] text-white' : 'text-gray-500 hover:text-white'}`}
@@ -251,6 +253,60 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                         >
                             <FaChartBar size={14} />
                         </button>
+                    </div>
+
+                    <div className="relative md:hidden">
+                        <button
+                            onClick={() => setIsMobileSettingsOpen(!isMobileSettingsOpen)}
+                            className={`p-2 rounded-lg border ${isMobileSettingsOpen ? 'border-primary text-primary' : 'border-gray-800 text-gray-400'} hover:text-white transition-colors cursor-pointer bg-black/40`}
+                        >
+                            <FaCog size={18} />
+                        </button>
+
+                        {isMobileSettingsOpen && (
+                            <div className="absolute top-full right-0 mt-2 w-48 bg-surface border border-gray-700 rounded-lg shadow-xl z-50 p-3 flex flex-col gap-4">
+                                <div>
+                                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Time Range</h4>
+                                    <div className="flex bg-black/40 rounded p-1">
+                                        {['24H', '7D', '30D'].map((tab) => (
+                                            <button
+                                                key={tab}
+                                                onClick={() => {
+                                                    setTimeRange(tab);
+                                                }}
+                                                className={`flex-1 py-1.5 text-xs font-bold rounded transition-colors ${timeRange === tab ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                            >
+                                                {tab}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="text-xs font-bold text-gray-500 uppercase mb-2">Chart Type</h4>
+                                    <div className="flex bg-black/40 rounded p-1 justify-between">
+                                        <button
+                                            onClick={() => setChartType('area')}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'area' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                        >
+                                            <FaChartArea size={14} />
+                                        </button>
+                                        <button
+                                            onClick={() => setChartType('line')}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'line' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                        >
+                                            <FaChartLine size={14} />
+                                        </button>
+                                        <button
+                                            onClick={() => setChartType('candle')}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'candle' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                        >
+                                            <FaChartBar size={14} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

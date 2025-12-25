@@ -82,6 +82,7 @@ const Signup = () => {
                 console.log("6. Executing navigation to /dashboard"); 
                 navigate('/dashboard', { replace: true });
 
+
                 setLoading(false);
             }, 2000);
 
@@ -95,7 +96,7 @@ const Signup = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
             {loading ? (
                 <motion.div
