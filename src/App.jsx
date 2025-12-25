@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './services/firebase';
+import { supabase } from './services/supabase';
 import { setUser, setLoading } from './redux/slices/authSlice';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+// import Profile from './pages/Profile';
 import Market from './pages/Market';
 import Portfolio from './pages/Portfolio';
-
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
@@ -28,26 +27,62 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-   
     console.log("App mounted, setting up auth listener");
     dispatch(setLoading(true));
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("Auth state changed:", user ? user.email : "No user");
-      if (user) {
-        dispatch(setUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        }));
+    // Check active session immediately
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      handleSession(session);
+    });
+
+    // Listen for changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      handleSession(session);
+    });
+
+    async function handleSession(session) {
+      console.log("Auth state changed:", session?.user?.email || "No user");
+
+      if (session?.user) {
+        try {
+          // Fetch additional user details from Supabase 'users' table
+          // ASSUMPTION: Table is named 'users' and linked by 'id' (uuid)
+          const { data: profile, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+
+          if (error && error.code !== 'PGRST116') { // PGRST116 is "Row not found" - might happen if table trigger failed
+            console.error("Error fetching profile:", error);
+          }
+
+          dispatch(setUser({
+            uid: session.user.id,
+            email: session.user.email,
+            displayName: profile?.username || session.user.user_metadata?.full_name, // Fallback
+            photoURL: profile?.avatar_url || "", // Supabase often uses avatar_url
+            mobile: profile?.mobile || "",
+            ...profile // Merge all other profile fields
+          }));
+        } catch (error) {
+          console.error("Unexpected error fetching profile:", error);
+          // Basic auth fallback
+          dispatch(setUser({
+            uid: session.user.id,
+            email: session.user.email,
+            // ... defaults
+          }));
+        }
       } else {
         dispatch(setUser(null));
       }
       dispatch(setLoading(false));
-    });
+    }
 
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, [dispatch]);
 
   return (
@@ -61,8 +96,12 @@ function App() {
             <Dashboard />
           }
         />
-        
-     
+        {/* <Route
+          path="/profile"
+          element={
+            <Profile />
+          }
+        /> */}
         <Route path="/market" element={<Market />} />
         <Route path="/portfolio" element={<Portfolio />} />
       </Routes>

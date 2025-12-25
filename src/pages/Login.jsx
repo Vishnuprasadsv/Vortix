@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import { supabase } from '../services/supabase';
 import { setUser, setError } from '../redux/slices/authSlice';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -23,13 +22,14 @@ const Login = () => {
         setLocalError('');
 
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            dispatch(setUser({
-                uid: userCredential.user.uid,
-                email: userCredential.user.email,
-                displayName: userCredential.user.displayName,
-                photoURL: userCredential.user.photoURL,
-            }));
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) throw error;
+
+            // App.jsx listener will handle Redux state update
             navigate('/dashboard');
         } catch (error) {
             console.error(error);
@@ -42,6 +42,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Pulse Background Animation */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
             <motion.div

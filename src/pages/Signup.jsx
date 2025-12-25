@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../services/firebase';
+import { supabase } from '../services/supabase';
 import { setUser, setError } from '../redux/slices/authSlice';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -26,7 +24,7 @@ const Signup = () => {
         e.preventDefault();
         setLoading(true);
         setLocalError('');
-        console.log("1. Starting signup..."); 
+        console.log("1. Starting signup...");
 
         if (password !== confirmPassword) {
             setLocalError("Passwords do not match.");
@@ -41,48 +39,55 @@ const Signup = () => {
         }
 
         try {
-            console.log("2. Checking username availability..."); 
-            const q = query(collection(db, "users"), where("username", "==", username));
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
+            // Check for unique username (manual check)
+            console.log("2. Checking username availability...");
+            const { data: existingUser, error: checkError } = await supabase
+                .from('users')
+                .select('username')
+                .eq('username', username)
+                .single();
+
+            if (existingUser) {
                 setLocalError("Username already taken.");
                 setLoading(false);
                 return;
             }
+            // Ignore PGRST116 (not found) error here as it means username is free
 
-            console.log("3. Creating Firebase auth user..."); 
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-
-            await updateProfile(user, {
-                displayName: username
+            console.log("3. Creating Supabase auth user with metadata...");
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        username: username,
+                        mobile: mobile,
+                        agreed_to_terms: true
+                    }
+                }
             });
 
-            console.log("4. Saving user to Firestore..."); 
-            await setDoc(doc(db, "users", user.uid), {
-                username: username,
+            if (authError) throw authError;
+
+            const user = authData.user;
+            if (!user) throw new Error("No user created");
+
+            // 4. Update Redux State immediately (optimistic update)
+            // The trigger will create the DB row, but we want the UI to reflect it now
+            const fullUserData = {
+                uid: user.id,
                 email: email,
-                mobile: mobile,
-                photoURL: user.photoURL || "",
-                createdAt: new Date(),
-                agreedToTerms: true
-            });
-
-            dispatch(setUser({
-                uid: user.uid,
-                email: user.email,
                 displayName: username,
-                photoURL: user.photoURL,
+                photoURL: "",
                 mobile: mobile,
-            }));
+                agreed_to_terms: true
+            };
+            dispatch(setUser(fullUserData));
 
-            console.log("5. Success! Waiting 2 seconds to navigate..."); 
+            console.log("5. Success! Waiting to navigate...");
 
             setTimeout(() => {
-                console.log("6. Executing navigation to /dashboard"); 
                 navigate('/dashboard', { replace: true });
-
-
                 setLoading(false);
             }, 2000);
 
@@ -96,6 +101,7 @@ const Signup = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Pulse Background Animation */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
             {loading ? (
