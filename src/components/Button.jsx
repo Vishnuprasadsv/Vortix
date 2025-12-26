@@ -1,4 +1,3 @@
-
 import { twMerge } from 'tailwind-merge';
 
 const Button = ({ children, className, variant = 'primary', isLoading = false, ...props }) => {

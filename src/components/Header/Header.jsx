@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
@@ -12,6 +12,7 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -32,108 +33,116 @@ const Header = () => {
     ];
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const toggleChat = () => setIsChatOpen(!isChatOpen);
 
     return (
-        <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-[100]">
-            {/* Logo */}
-            <div className="flex items-center gap-2 z-50">
-                <img src="/logo.png" alt="Vortix Logo" className="w-8 h-8 object-contain" />
-                <Link to="/dashboard" className="text-xl font-bold text-[#FF5F1F] tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
-                    VORTIX
-                </Link>
-            </div>
-
-            {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-8">
-                {navLinks.map((link) => (
-                    <Link
-                        key={link.name}
-                        to={link.path}
-                        className={`text-sm font-medium transition-colors   hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
-                            }`}
-                    >
-                        {link.name}
+        <>
+            <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-[100]">
+                <div className="flex items-center gap-2 z-50">
+                    <img src="/logo.png" alt="Vortix Logo" className="w-8 h-8 object-contain" />
+                    <Link to="/dashboard" className="text-xl font-bold text-[#FF5F1F] tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
+                        VORTIX
                     </Link>
-                ))}
-            </nav>
+                </div>
 
-            {/* Desktop Right Side Actions */}
-            <div className="hidden md:flex items-center gap-4">
-                {/* Ask VortexAI Button */}
-                <button className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/50 text-orange-500 hover:bg-orange-500/10 transition-colors text-sm font-medium cursor-pointer">
-                    <FaRobot />
-                    <span>Ask VortexAI</span>
+                <nav className="hidden md:flex items-center gap-8">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            to={link.path}
+                            className={`text-sm font-medium transition-colors   hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
+                                }`}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+                </nav>
+
+                <div className="hidden md:flex items-center gap-4">
+                    <button
+                        onClick={toggleChat}
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full border transition-all text-sm font-medium cursor-pointer ${isChatOpen ? 'bg-orange-500 text-white border-orange-500 shadow-lg shadow-orange-500/30' : 'border-orange-500/50 text-orange-500 hover:bg-orange-500/10'}`}
+                    >
+                        <FaRobot />
+                        <span>Ask VortexAI</span>
+                    </button>
+
+                    <div className="w-px h-6 bg-gray-800"></div>
+
+                    <Link to="/profile" className="flex items-center gap-2">
+                        <div className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700 hover:border-primary transition-colors">
+                            {user?.photoURL ? (
+                                <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                                <FaUserCircle className="text-gray-400 w-full h-full p-1" />
+                            )}
+                        </div>
+                    </Link>
+                </div>
+
+                <button
+                    className="md:hidden text-text-muted hover:text-white z-50 cursor-pointer"
+                    onClick={toggleMenu}
+                >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
 
-                <div className="w-px h-6 bg-gray-800"></div>
+                {isMobileMenuOpen && (
+                    <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 md:hidden flex flex-col pt-20 px-6">
+                        <nav className="flex flex-col gap-6">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    to={link.path}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={`text-xl font-medium transition-colors ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
+                                        }`}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
 
-                {/* Profile */}
-                <Link to="/profile" className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700 hover:border-primary transition-colors">
-                        {user?.photoURL ? (
-                            <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
-                        ) : (
-                            <FaUserCircle className="text-gray-400 w-full h-full p-1" />
-                        )}
-                    </div>
-                </Link>
-            </div>
+                            <div className="h-px bg-gray-800 my-2"></div>
 
-            {/* Mobile Menu Toggle */}
-            <button
-                className="md:hidden text-text-muted hover:text-white z-50 cursor-pointer"
-                onClick={toggleMenu}
-            >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            {/* Mobile Menu Overlay */}
-            {isMobileMenuOpen && (
-                <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 md:hidden flex flex-col pt-20 px-6">
-                    <nav className="flex flex-col gap-6">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-xl font-medium transition-colors ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
-                                    }`}
+                            <button
+                                onClick={() => {
+                                    toggleChat();
+                                    setIsMobileMenuOpen(false);
+                                }}
+                                className="flex items-center gap-3 text-orange-500 font-medium text-lg cursor-pointer"
                             >
-                                {link.name}
-                            </Link>
-                        ))}
+                                <FaRobot />
+                                <span>Ask VortexAI</span>
+                            </button>
 
-                        <div className="h-px bg-gray-800 my-2"></div>
+                            <div className="flex items-center gap-4 mt-4">
+                                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700">
+                                        {user?.photoURL ? (
+                                            <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                                        ) : (
+                                            <FaUserCircle className="text-gray-400 w-full h-full p-1" />
+                                        )}
+                                    </div>
+                                    <span className="text-white text-lg">{user?.displayName || 'User'}</span>
+                                </Link>
+                            </div>
 
-                        <button className="flex items-center gap-3 text-orange-500 font-medium text-lg cursor-pointer">
-                            <FaRobot />
-                            <span>Ask VortexAI</span>
-                        </button>
+                            <button
+                                onClick={handleLogout}
+                                className="mt-4 px-4 py-2 text-center rounded-lg border border-red-500/50 text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
+                            >
+                                Logout
+                            </button>
+                        </nav>
+                    </div>
+                )}
+            </header>
 
-                        <div className="flex items-center gap-4 mt-4">
-                            <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700">
-                                    {user?.photoURL ? (
-                                        <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
-                                    ) : (
-                                        <FaUserCircle className="text-gray-400 w-full h-full p-1" />
-                                    )}
-                                </div>
-                                <span className="text-white text-lg">{user?.displayName || 'User'}</span>
-                            </Link>
-                        </div>
 
-                        <button
-                            onClick={handleLogout}
-                            className="mt-4 px-4 py-2 text-center rounded-lg border border-red-500/50 text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
-                        >
-                            Logout
-                        </button>
-                    </nav>
-                </div>
-            )}
-        </header>
+        </>
     );
 };
 
 export default Header;
+

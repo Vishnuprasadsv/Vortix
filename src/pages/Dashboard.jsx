@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter } from 'react-icons/fa';
@@ -16,7 +16,7 @@ const Dashboard = () => {
     const [timeRange, setTimeRange] = useState('24H');
     const [chartType, setChartType] = useState('area'); 
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortOption, setSortOption] = useState('default'); 
+    const [sortOption, setSortOption] = useState('default');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     useEffect(() => {
@@ -62,9 +62,6 @@ const Dashboard = () => {
     };
 
     const sortedCoins = getSortedCoins();
-
-
-
 
     if (loading) {
         return <Loader />;

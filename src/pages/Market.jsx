@@ -30,7 +30,7 @@ const Market = () => {
                 setLoading(false);
             } catch (error) {
                 console.error("Failed to load market data", error);
-                setCoins(LOADING_PLACEHOLDER); 
+                setCoins(LOADING_PLACEHOLDER);
                 setLoading(false);
             }
         };
@@ -113,7 +113,6 @@ const Market = () => {
                             <FaFilter />
                         </button>
 
-                        {/* Filter Dropdown */}
                         {filterOpen && (
                             <div className="absolute top-full right-0 mt-2 w-56 bg-surface border border-gray-700 rounded-lg shadow-xl z-50 p-2">
                                 <h3 className="text-xs font-bold text-text-muted uppercase px-2 py-1 mb-1">Sort Market</h3>

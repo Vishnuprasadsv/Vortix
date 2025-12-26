@@ -1,25 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { withdrawFunds } from '../redux/slices/portfolioSlice';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaCheckCircle, FaUniversity, FaMobileAlt, FaArrowLeft } from 'react-icons/fa';
+import { FaTimes, FaCheckCircle, FaUniversity, FaMobileAlt, FaArrowLeft, FaLock } from 'react-icons/fa';
+import { supabase } from '../services/supabase';
 
 const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
     const [step, setStep] = useState(1);
     const [amount, setAmount] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('bank');
+    const [paymentMethod, setPaymentMethod] = useState('bank'); 
     const [isProcessing, setIsProcessing] = useState(false);
+    const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (isOpen) {
             setStep(1);
             setAmount(totalBalance); 
             setIsProcessing(false);
+            setPassword('');
+            setPasswordError('');
         }
-    }, [isOpen]); 
-
+    }, [isOpen]);
     if (!isOpen) return null;
 
     const handleNextStep = () => {
@@ -36,13 +41,43 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
         setStep(step - 1);
     }
 
-    const handleWithdraw = () => {
+    const handleProceedToPassword = () => {
+        setStep(4);
+    };
+
+    const handleVerifyAndWithdraw = async () => {
+        if (!password) {
+            setPasswordError("Password is required");
+            return;
+        }
+
         setIsProcessing(true);
-        setTimeout(() => {
+        setPasswordError('');
+
+        try {
+            const { error } = await supabase.auth.signInWithPassword({
+                email: user.email,
+                password: password
+            });
+
+            if (error) {
+                setPasswordError("Incorrect password. Please try again.");
+                setIsProcessing(false);
+                return;
+            }
+
+
+            setTimeout(() => {
+                setIsProcessing(false);
+                dispatch(withdrawFunds(Number(amount)));
+                setStep(5);
+            }, 1000);
+
+        } catch (err) {
+            console.error("Verification error:", err);
+            setPasswordError("An error occurred during verification.");
             setIsProcessing(false);
-            dispatch(withdrawFunds(Number(amount)));
-            setStep(4);
-        }, 2000);
+        }
     };
 
     return (
@@ -56,7 +91,7 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
                 >
                     <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#0F1114]">
                         <div className="flex items-center gap-2">
-                            {step > 1 && (
+                            {step > 1 && step < 5 && (
                                 <button onClick={handleBackData} className="text-gray-400 hover:text-white mr-2">
                                     <FaArrowLeft />
                                 </button>
@@ -174,17 +209,63 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
                                         <span className="text-white font-bold">${Number(amount).toLocaleString()}</span>
                                     </div>
                                     <button
-                                        onClick={handleWithdraw}
-                                        disabled={isProcessing}
-                                        className="w-full py-4 rounded-lg bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white font-bold text-lg transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
+                                        onClick={handleProceedToPassword}
+                                        className="w-full py-4 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2"
                                     >
-                                        {isProcessing ? 'Processing...' : 'Proceed to Withdraw'}
+                                        Proceed to Security Check
                                     </button>
                                 </div>
                             </div>
                         )}
 
                         {step === 4 && (
+                            <div className="space-y-6">
+                                <div className="text-center">
+                                    <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto text-blue-500 text-3xl mb-4">
+                                        <FaLock />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white">Security Verification</h4>
+                                    <p className="text-gray-400 text-sm mt-2">Please enter your account password to confirm this withdrawal of <span className="text-white font-bold">${Number(amount).toLocaleString()}</span>.</p>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs uppercase text-gray-500 font-bold mb-2">Account Password</label>
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                            if (passwordError) setPasswordError('');
+                                        }}
+                                        className={`w-full bg-[#0F1114] border ${passwordError ? 'border-red-500' : 'border-gray-700'} rounded-lg py-4 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-colors`}
+                                        placeholder="••••••••"
+                                    />
+                                    {passwordError && (
+                                        <p className="text-red-500 text-xs mt-2">{passwordError}</p>
+                                    )}
+                                </div>
+
+                                <button
+                                    onClick={handleVerifyAndWithdraw}
+                                    disabled={isProcessing}
+                                    className="w-full py-4 rounded-lg bg-green-500 hover:bg-green-600 disabled:opacity-50 text-white font-bold text-lg transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
+                                >
+                                    {isProcessing ? (
+                                        <>
+                                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            Verifying...
+                                        </>
+                                    ) : (
+                                        'Confirm Withdrawal'
+                                    )}
+                                </button>
+                            </div>
+                        )}
+
+                        {step === 5 && (
                             <div className="text-center space-y-6 py-4">
                                 <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto text-green-500 text-4xl shadow-lg shadow-green-500/20">
                                     <FaCheckCircle />

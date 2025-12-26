@@ -32,3 +32,17 @@ body {
   background-color: var(--color-primary);
   border-radius: 9999px;
 }
+
+button,
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"]:disabled,
+input:disabled {
+  cursor: not-allowed;
+}

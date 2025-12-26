@@ -1,24 +1,56 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Vortix - Project Outline
+(Cryptocurrency Analytics Dashboard)
+This is a quick technical overview of the tools, APIs, and libraries used to build the NeoCrypto analytics platform.
+1. Data Sources (APIs)
+•
+Crypto Market Data: CoinGecko API
+o
+Used for: Real-time cryptocurrency prices, market cap rankings, historical chart data, and top gainers/losers.
+o
+Endpoints used: /coins/markets, /coins/{id}/market_chart.
+•
+Artificial Intelligence: Google Gemini API
+o
+Used for: The "NeoAI Assistant" chatbot.
+o
+Function: Analyzes current market data context to provide summary insights and answer user questions.
+2. Visualization (Graphs & Charts)
+•
+Library: Recharts
+•
+Chart Types Implemented:
+o
+Area Chart: Default view for price history (visualizes trends with a gradient fill).
+o
+Line Chart: Used for clean price tracking and comparison overlays.
+o
+Bar Chart: Option for viewing discrete price points over time.
+•
+Features: Custom tooltips, responsive resizing, and multiple axes for coin comparisons.
+3. UI Assets (Icons & Styling)
+•
+Icons: Lucide React
+o
+A clean, consistent icon set used for navigation (LayoutDashboard, Wallet), actions (Trash2, Plus), and indicators (TrendingUp, Activity).
+•
+Styling Framework: Tailwind CSS
+o
+Primary Styling Engine: Used for rapid UI development with utility classes.
+o
+Theme: Implements a specific "Neon Dark Mode" aesthetic (#FF5F1F accent on #000000 background).
+o
+Capabilities: Handles Flexbox/Grid layouts, responsive breakpoints, and visual effects like Glassmorphism (backdrop-blur) and neon glows (drop-shadow).
+4. Backend & Authentication
+•
+Platform: supabase
+o
+Authentication: Manages secure user sign-up, sign-in, profile image managing and session handling (e.g., Email/Password).
+o
+Data Persistence: Uses Firestore to save user-specific data, ensuring portfolios and watchlists are synced across devices.
+5. Core Framework
+•
+Frontend Library: React (v18+)
+•
+Build Tool: Vite
+•
+State Management: React Hooks (useState, useEffect, useMemo, useRef) for managing portfolio state, API data fetching, and UI toggles.

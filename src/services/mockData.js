@@ -17,7 +17,7 @@ const generateData = (basePrice, volatility, points) => {
     for (let i = 0; i < points; i++) {
         const change = (Math.random() - 0.5) * volatility;
         price += change;
-        if (price < 0.000001) price = 0.000001; 
+        if (price < 0.000001) price = 0.000001;
 
         const time = new Date(now.getTime() - (points - 1 - i) * 1000 * 60 * 60); 
 

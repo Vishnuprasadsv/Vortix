@@ -39,7 +39,6 @@ const Signup = () => {
         }
 
         try {
-            // Check for unique username (manual check)
             console.log("2. Checking username availability...");
             const { data: existingUser, error: checkError } = await supabase
                 .from('users')
@@ -52,7 +51,6 @@ const Signup = () => {
                 setLoading(false);
                 return;
             }
-            // Ignore PGRST116 (not found) error here as it means username is free
 
             console.log("3. Creating Supabase auth user with metadata...");
             const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -72,8 +70,7 @@ const Signup = () => {
             const user = authData.user;
             if (!user) throw new Error("No user created");
 
-            // 4. Update Redux State immediately (optimistic update)
-            // The trigger will create the DB row, but we want the UI to reflect it now
+
             const fullUserData = {
                 uid: user.id,
                 email: email,
@@ -101,7 +98,6 @@ const Signup = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Pulse Background Animation */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
             {loading ? (

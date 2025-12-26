@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-    AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar
+    AreaChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar
 } from 'recharts';
 import { FaExchangeAlt, FaChartBar, FaChartLine, FaChartArea, FaCog } from 'react-icons/fa';
 import { getCoinData } from '../services/mockData';
@@ -53,11 +53,11 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
     };
 
-    const getCoinColor = (coin) => coin?.color || '#22c55e';
+    const getCoinColor = (coin) => coin?.color || '#22c55e'; 
 
     const renderChart = () => {
         const primaryColor = '#FF5F1F'; 
-        const secondaryColor = '#ef4444';
+        const secondaryColor = '#ef4444'; 
 
         const commonProps = {
             data: chartData,
@@ -136,7 +136,6 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
             );
         }
 
-        // Default to Area
         return (
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart {...commonProps}>
@@ -152,7 +151,6 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
     return (
         <div className="bg-surface rounded-xl border border-gray-800 p-6 flex flex-col h-full relative">
-            {/* Header */}
             <div className="flex flex-row items-center justify-between gap-4 mb-6 min-w-0">
                 <div className="flex flex-row items-center gap-6 flex-1 min-w-0">
                     <div className="flex items-center gap-3 min-w-0">
@@ -220,7 +218,6 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                         </div>
                     </div>
                 </div>
-
 
                 <div className="flex flex-row items-center gap-4 flex-shrink-0">
                     <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">

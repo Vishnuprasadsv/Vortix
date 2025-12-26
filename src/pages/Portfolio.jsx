@@ -70,7 +70,7 @@ const Portfolio = () => {
                                 <div className="text-2xl font-bold text-white tracking-wide">${totalBalance.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })}</div>
                             </div>
                             <Button
-                                variant="primary" 
+                                variant="primary"
                                 onClick={() => setIsWithdrawModalOpen(true)}
                                 className="bg-green-500 hover:bg-green-600 border-none text-white py-3 md:py-4 px-6 h-auto md:h-[74px] flex justify-center items-center text-sm md:text-base w-full md:w-auto shadow-lg shadow-green-500/20 font-bold transition-all"
                             >
