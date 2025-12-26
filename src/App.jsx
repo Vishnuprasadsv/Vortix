@@ -82,6 +82,7 @@ function App() {
 
   return (
     <div className="antialiased text-text font-sans min-h-screen bg-background">
+      {/* routes for navigations */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
