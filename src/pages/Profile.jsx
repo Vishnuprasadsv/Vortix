@@ -92,6 +92,7 @@ const Profile = () => {
         setTimeout(() => {
             setLoading(false);
             setOtpStep('verify');
+            setStatusPopup({ show: true, type: 'success', message: "OTP sent successfully! (Mock)", theme: 'neon' });
         }, 1500);
     };
 
@@ -102,9 +103,10 @@ const Profile = () => {
                 setLoading(false);
                 setTwoFactor(true);
                 setShow2FAModal(false);
+                setStatusPopup({ show: true, type: 'success', message: "2FA Enabled Successfully! (Mock)", theme: 'neon' });
             }, 1500);
         } else {
-            alert("Please enter a valid 6-digit OTP");
+            setStatusPopup({ show: true, type: 'error', message: "Please enter a valid 6-digit OTP" });
         }
     };
 
@@ -218,7 +220,7 @@ const Profile = () => {
             dispatch(setUser({ ...user, photoURL: publicUrl }));
 
             console.log("Image upload flow completed successfully");
-            alert("Profile image updated successfully!");
+            setStatusPopup({ show: true, type: 'success', message: "Profile image updated successfully!", theme: 'neon' });
             setUploading(false);
 
         } catch (error) {
@@ -252,7 +254,6 @@ const Profile = () => {
                                             ) : (
                                                 <FaUser className="text-gray-400 text-3xl" />
                                             )}
-                                            {/* Hover Overlay */}
                                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                                                 <FaCamera className="text-white text-xl" />
                                             </div>
@@ -321,8 +322,6 @@ const Profile = () => {
                     </div>
 
                     <div className="w-full h-px bg-gray-800/50 mb-8"></div>
-
-
                     <div className="flex flex-col sm:flex-row justify-end gap-4">
                         {!isEditing ? (
                             <>
@@ -559,7 +558,11 @@ const Profile = () => {
                             className="bg-[#0F1114] border border-gray-800 rounded-2xl p-8 max-w-sm w-full shadow-2xl relative text-center"
                         >
                             <div className="flex justify-center mb-4">
-                                {statusPopup.type === 'success' ? (
+                                {statusPopup.theme === 'neon' ? (
+                                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary">
+                                        <FaCheckCircle className="text-primary text-3xl" />
+                                    </div>
+                                ) : statusPopup.type === 'success' ? (
                                     <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center border-2 border-green-500">
                                         <FaCheckCircle className="text-green-500 text-3xl" />
                                     </div>
@@ -570,7 +573,9 @@ const Profile = () => {
                                 )}
                             </div>
 
-                            <h3 className={`text-xl font-bold mb-2 ${statusPopup.type === 'success' ? 'text-green-500' : 'text-red-500'}`}>
+                            <h3 className={`text-xl font-bold mb-2 ${statusPopup.theme === 'neon' ? 'text-primary' :
+                                statusPopup.type === 'success' ? 'text-green-500' : 'text-red-500'
+                                }`}>
                                 {statusPopup.type === 'success' ? 'Success!' : 'Error'}
                             </h3>
 
@@ -578,9 +583,12 @@ const Profile = () => {
 
                             <button
                                 onClick={() => setStatusPopup({ ...statusPopup, show: false })}
-                                className="px-6 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium transition-colors cursor-pointer border border-gray-700"
+                                className={`px-6 py-2 rounded-lg font-medium transition-colors cursor-pointer border ${statusPopup.theme === 'neon'
+                                    ? 'bg-primary hover:bg-orange-600 text-white border-primary shadow-lg shadow-primary/20'
+                                    : 'bg-gray-800 hover:bg-gray-700 text-white border-gray-700'
+                                    }`}
                             >
-                                Close
+                                {statusPopup.theme === 'neon' ? 'OK' : 'Close'}
                             </button>
                         </motion.div>
                     </div>

@@ -57,8 +57,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
     const renderChart = () => {
         const primaryColor = '#FF5F1F'; 
-        const secondaryColor = '#ef4444'; 
-
+        const secondaryColor = '#ef4444';
         const commonProps = {
             data: chartData,
             margin: { top: 10, right: 0, left: 0, bottom: 0 }
@@ -218,6 +217,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                         </div>
                     </div>
                 </div>
+
 
                 <div className="flex flex-row items-center gap-4 flex-shrink-0">
                     <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">

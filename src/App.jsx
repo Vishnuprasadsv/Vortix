@@ -45,14 +45,13 @@ function App() {
 
       if (session?.user) {
         try {
-
           const { data: profile, error } = await supabase
             .from('users')
             .select('*')
             .eq('id', session.user.id)
             .single();
 
-          if (error && error.code !== 'PGRST116') { 
+          if (error && error.code !== 'PGRST116') {
             console.error("Error fetching profile:", error);
           }
 
@@ -82,7 +81,6 @@ function App() {
 
   return (
     <div className="antialiased text-text font-sans min-h-screen bg-background">
-      {/* routes for navigations */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

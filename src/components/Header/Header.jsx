@@ -5,6 +5,7 @@ import { logout } from '../../redux/slices/authSlice';
 import { supabase } from '../../services/supabase';
 import { FaRobot, FaUserCircle } from 'react-icons/fa';
 import { Menu, X } from 'lucide-react';
+import VortixAIChat from '../VortixAIChat';
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
@@ -50,7 +51,7 @@ const Header = () => {
                         <Link
                             key={link.name}
                             to={link.path}
-                            className={`text-sm font-medium transition-colors   hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
+                            className={`text-sm font-medium transition-colors   hover:text-primary ${location.pathname === link.path ? 'text-primary drop-shadow-[0_0_8px_rgba(255,95,31,0.8)]' : 'text-text-muted'
                                 }`}
                         >
                             {link.name}
@@ -95,7 +96,7 @@ const Header = () => {
                                     key={link.name}
                                     to={link.path}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`text-xl font-medium transition-colors ${location.pathname === link.path ? 'text-primary' : 'text-text-muted'
+                                    className={`text-xl font-medium transition-colors ${location.pathname === link.path ? 'text-primary drop-shadow-[0_0_8px_rgba(255,95,31,0.8)]' : 'text-text-muted'
                                         }`}
                                 >
                                     {link.name}
@@ -104,16 +105,7 @@ const Header = () => {
 
                             <div className="h-px bg-gray-800 my-2"></div>
 
-                            <button
-                                onClick={() => {
-                                    toggleChat();
-                                    setIsMobileMenuOpen(false);
-                                }}
-                                className="flex items-center gap-3 text-orange-500 font-medium text-lg cursor-pointer"
-                            >
-                                <FaRobot />
-                                <span>Ask VortexAI</span>
-                            </button>
+
 
                             <div className="flex items-center gap-4 mt-4">
                                 <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
@@ -139,7 +131,17 @@ const Header = () => {
                 )}
             </header>
 
+            {['/dashboard', '/market'].includes(location.pathname) && !isChatOpen && (
+                <button
+                    onClick={toggleChat}
+                    className="md:hidden fixed bottom-6 right-6 z-[90] w-14 h-14 rounded-full bg-[#FF5F1F] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,95,31,0.6)] hover:shadow-[0_0_30px_rgba(255,95,31,0.8)] hover:scale-110 transition-all duration-300 cursor-pointer"
+                    aria-label="Ask Vortix AI"
+                >
+                    <FaRobot size={24} />
+                </button>
+            )}
 
+            <VortixAIChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
         </>
     );
 };

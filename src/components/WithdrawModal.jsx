@@ -8,7 +8,7 @@ import { supabase } from '../services/supabase';
 const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
     const [step, setStep] = useState(1);
     const [amount, setAmount] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('bank'); 
+    const [paymentMethod, setPaymentMethod] = useState('bank');
     const [isProcessing, setIsProcessing] = useState(false);
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -24,7 +24,8 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
             setPassword('');
             setPasswordError('');
         }
-    }, [isOpen]);
+    }, [isOpen]); 
+
     if (!isOpen) return null;
 
     const handleNextStep = () => {
@@ -65,7 +66,6 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
                 setIsProcessing(false);
                 return;
             }
-
 
             setTimeout(() => {
                 setIsProcessing(false);

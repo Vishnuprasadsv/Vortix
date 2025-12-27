@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaArrowUp, FaArrowDown, FaBitcoin, FaEthereum, FaChartBar, FaSearch } from 'react-icons/fa';
+import { FaArrowUp, FaArrowDown, FaChartBar} from 'react-icons/fa';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 export const TopGainers = ({ coins = [] }) => {
