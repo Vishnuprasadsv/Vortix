@@ -72,7 +72,7 @@ const Portfolio = () => {
                             <Button
                                 variant="primary" 
                                 onClick={() => setIsWithdrawModalOpen(true)}
-                                className="bg-green-500 hover:bg-green-600 border-none text-white py-3 md:py-4 px-6 h-auto md:h-[74px] flex justify-center items-center text-sm md:text-base w-full md:w-auto shadow-lg shadow-green-500/20 font-bold transition-all"
+                                className="bg-green-500 hover:bg-green-600 border-none text-white py-3 md:py-4 px-6 h-auto md:h-18.5 flex justify-center items-center text-sm md:text-base w-full md:w-auto shadow-lg shadow-green-500/20 font-bold transition-all"
                             >
                                 <FaWallet className="mr-2" /> Withdraw <span className="inline md:inline ml-1">Funds</span>
                             </Button>
@@ -81,7 +81,7 @@ const Portfolio = () => {
                 </div>
 
                 {assets.length === 0 ? (
-                    <div className="bg-[#0F1114] border border-gray-800 border-dashed rounded-xl p-12 min-h-[400px] flex flex-col items-center justify-center text-center">
+                    <div className="bg-[#0F1114] border border-gray-800 border-dashed rounded-xl p-12 min-h-100 flex flex-col items-center justify-center text-center">
                         <div className="w-16 h-16 rounded-2xl bg-gray-800/50 flex items-center justify-center mb-4 text-gray-600">
                             <FaWallet className="text-3xl" />
                         </div>

@@ -153,7 +153,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
             <div className="flex flex-row items-center justify-between gap-4 mb-6 min-w-0">
                 <div className="flex flex-row items-center gap-6 flex-1 min-w-0">
                     <div className="flex items-center gap-3 min-w-0">
-                        {selectedCoin.image && <img src={selectedCoin.image} alt="" className="w-8 h-8 rounded-full flex-shrink-0" />}
+                        {selectedCoin.image && <img src={selectedCoin.image} alt="" className="w-8 h-8 rounded-full shrink-0" />}
                         <div className="flex items-baseline gap-2 min-w-0 overflow-hidden">
                             <h2 className="text-xl font-bold text-white truncate">
                                 {selectedCoin.name}
@@ -164,7 +164,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-2 flex-shrink-0">
+                    <div className="flex items-center gap-2 shrink-0">
                         <button
                             onClick={() => setIsBuyModalOpen(true)}
                             className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-bold py-1.5 px-6 rounded transition-colors text-sm cursor-pointer whitespace-nowrap"
@@ -219,13 +219,13 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                 </div>
 
 
-                <div className="flex flex-row items-center gap-4 flex-shrink-0">
+                <div className="flex flex-row items-center gap-4 shrink-0">
                     <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">
                         {['24H', '7D', '30D'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setTimeRange(tab)}
-                                className={`px-3 py-1.5 text-xs font-bold rounded transition-colors cursor-pointer ${timeRange === tab ? 'bg-[#FF5F1F] text-white' : 'text-gray-500 hover:text-white'}`}
+                                className={`px-3 py-1.5 text-xs font-bold rounded transition-colors cursor-pointer ${timeRange === tab ? 'bg-primary text-white' : 'text-gray-500 hover:text-white'}`}
                             >
                                 {tab}
                             </button>
@@ -234,19 +234,19 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                     <div className="hidden md:flex items-center gap-1 bg-black/40 rounded-lg p-1">
                         <button
                             onClick={() => setChartType('area')}
-                            className={`p-2 rounded cursor-pointer ${chartType === 'area' ? 'bg-[#FF5F1F] text-white' : 'text-gray-500 hover:text-white'}`}
+                            className={`p-2 rounded cursor-pointer ${chartType === 'area' ? 'bg-primary text-white' : 'text-gray-500 hover:text-white'}`}
                         >
                             <FaChartArea size={14} />
                         </button>
                         <button
                             onClick={() => setChartType('line')}
-                            className={`p-2 rounded cursor-pointer ${chartType === 'line' ? 'bg-[#FF5F1F] text-white' : 'text-gray-500 hover:text-white'}`}
+                            className={`p-2 rounded cursor-pointer ${chartType === 'line' ? 'bg-primary text-white' : 'text-gray-500 hover:text-white'}`}
                         >
                             <FaChartLine size={14} />
                         </button>
                         <button
                             onClick={() => setChartType('candle')}
-                            className={`p-2 rounded cursor-pointer ${chartType === 'candle' ? 'bg-[#FF5F1F] text-white' : 'text-gray-500 hover:text-white'}`}
+                            className={`p-2 rounded cursor-pointer ${chartType === 'candle' ? 'bg-primary text-white' : 'text-gray-500 hover:text-white'}`}
                         >
                             <FaChartBar size={14} />
                         </button>
@@ -271,7 +271,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                                                 onClick={() => {
                                                     setTimeRange(tab);
                                                 }}
-                                                className={`flex-1 py-1.5 text-xs font-bold rounded transition-colors ${timeRange === tab ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                                className={`flex-1 py-1.5 text-xs font-bold rounded transition-colors ${timeRange === tab ? 'bg-primary text-white' : 'text-gray-400'}`}
                                             >
                                                 {tab}
                                             </button>
@@ -284,19 +284,19 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                                     <div className="flex bg-black/40 rounded p-1 justify-between">
                                         <button
                                             onClick={() => setChartType('area')}
-                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'area' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'area' ? 'bg-primary text-white' : 'text-gray-400'}`}
                                         >
                                             <FaChartArea size={14} />
                                         </button>
                                         <button
                                             onClick={() => setChartType('line')}
-                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'line' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'line' ? 'bg-primary text-white' : 'text-gray-400'}`}
                                         >
                                             <FaChartLine size={14} />
                                         </button>
                                         <button
                                             onClick={() => setChartType('candle')}
-                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'candle' ? 'bg-[#FF5F1F] text-white' : 'text-gray-400'}`}
+                                            className={`p-2 rounded flex-1 flex justify-center ${chartType === 'candle' ? 'bg-primary text-white' : 'text-gray-400'}`}
                                         >
                                             <FaChartBar size={14} />
                                         </button>
@@ -308,7 +308,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                 </div>
             </div>
 
-            <div className="h-[400px] w-full mt-auto">
+            <div className="h-100 w-full mt-auto">
                 {renderChart()}
             </div>
 

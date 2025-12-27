@@ -123,7 +123,7 @@ export const Watchlist = ({ onCoinSelect, selectedCoinId, coins = [] }) => {
                 </button>
             </div>
 
-            <div className="space-y-4 overflow-y-auto max-h-[500px] custom-scrollbar">
+            <div className="space-y-4 overflow-y-auto max-h-125 custom-scrollbar">
                 {displayedCoins.map((coin, idx) => (
                     <div
                         key={coin.id}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter, FaChevronRight } from 'react-icons/fa';
@@ -221,25 +221,25 @@ const Market = () => {
                                                         <div className="grid grid-cols-2 gap-4">
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">Volume (24h)</div>
-                                                                <div className="text-white font-medium break-words">${coin.total_volume.toLocaleString()}</div>
+                                                                <div className="text-white font-medium wrap-break-word">${coin.total_volume.toLocaleString()}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">Circulating Supply</div>
-                                                                <div className="text-white font-medium break-words">{coin.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}</div>
+                                                                <div className="text-white font-medium wrap-break-word">{coin.circulating_supply.toLocaleString()} {coin.symbol.toUpperCase()}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">24h High</div>
-                                                                <div className="text-green-500 font-medium break-words">${coin.high_24h}</div>
+                                                                <div className="text-green-500 font-medium wrap-break-word">${coin.high_24h}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800">
                                                                 <div className="text-xs text-text-muted mb-1">24h Low</div>
-                                                                <div className="text-red-500 font-medium break-words">${coin.low_24h}</div>
+                                                                <div className="text-red-500 font-medium wrap-break-word">${coin.low_24h}</div>
                                                             </div>
                                                             <div className="bg-[#0F1114] p-4 rounded-lg border border-gray-800 md:hidden col-span-2">
                                                                 <div className="flex justify-between items-center mb-2">
                                                                     <div className="min-w-0 pr-2">
                                                                         <div className="text-xs text-text-muted mb-1">Market Cap</div>
-                                                                        <div className="text-white font-medium break-words">${coin.market_cap.toLocaleString()}</div>
+                                                                        <div className="text-white font-medium wrap-break-word">${coin.market_cap.toLocaleString()}</div>
                                                                     </div>
                                                                     <button
                                                                         onClick={(e) => handleBuyClick(e, coin)}

@@ -14,7 +14,7 @@ const Loader = ({ fullScreen = true }) => {
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
 
-                <motion.divg
+                <motion.div
                     className="absolute w-10 h-10 border-4 border-primary/30 border-b-primary rounded-full"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}

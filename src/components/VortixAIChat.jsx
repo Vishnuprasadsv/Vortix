@@ -64,9 +64,9 @@ const VortixAIChat = ({ isOpen, onClose }) => {
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 50, scale: 0.9 }}
-                className="fixed bottom-24 right-6 z-[100] w-96 h-[600px] bg-[#0F0F0F] rounded-2xl border border-orange-500/50 shadow-[0_0_20px_rgba(255,95,31,0.3)] flex flex-col overflow-hidden backdrop-blur-md"
+                className="fixed bottom-24 right-6 z-100 w-96 h-150 bg-surface rounded-2xl border border-orange-500/50 shadow-[0_0_20px_rgba(255,95,31,0.3)] flex flex-col overflow-hidden backdrop-blur-md"
             >
-                <div className="p-4 bg-gradient-to-r from-orange-600/20 to-transparent border-b border-orange-500/30 flex justify-between items-center">
+                <div className="p-4 bg-linear-to-r from-orange-600/20 to-transparent border-b border-orange-500/30 flex justify-between items-center">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/50 shadow-[0_0_10px_rgba(255,95,31,0.4)]">
                             <FaRobot className="text-orange-500 text-xl" />
@@ -134,7 +134,7 @@ const VortixAIChat = ({ isOpen, onClose }) => {
                     </div>
                 )}
 
-                <div className="p-4 bg-[#0F0F0F] border-t border-gray-800">
+                <div className="p-4 bg-surface border-t border-gray-800">
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -148,7 +148,7 @@ const VortixAIChat = ({ isOpen, onClose }) => {
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Ask about crypto..."
                             disabled={isLoading}
-                            className="w-full bg-[#1A1A1A] text-white rounded-xl py-3 pl-4 pr-12 border border-gray-700 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-500 shadow-inner"
+                            className="w-full bg-secondary text-white rounded-xl py-3 pl-4 pr-12 border border-gray-700 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-500 shadow-inner"
                         />
                         <button
                             type="submit"

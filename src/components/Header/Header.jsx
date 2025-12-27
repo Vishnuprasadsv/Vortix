@@ -38,10 +38,10 @@ const Header = () => {
 
     return (
         <>
-            <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-[100]">
+            <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-100">
                 <div className="flex items-center gap-2 z-50">
                     <img src="/logo.png" alt="Vortix Logo" className="w-8 h-8 object-contain" />
-                    <Link to="/dashboard" className="text-xl font-bold text-[#FF5F1F] tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
+                    <Link to="/dashboard" className="text-xl font-bold text-primary tracking-wide animate-pulse shadow-orange-500/50 drop-shadow-md">
                         VORTIX
                     </Link>
                 </div>
@@ -134,7 +134,7 @@ const Header = () => {
             {['/dashboard', '/market'].includes(location.pathname) && !isChatOpen && (
                 <button
                     onClick={toggleChat}
-                    className="md:hidden fixed bottom-6 right-6 z-[90] w-14 h-14 rounded-full bg-[#FF5F1F] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,95,31,0.6)] hover:shadow-[0_0_30px_rgba(255,95,31,0.8)] hover:scale-110 transition-all duration-300 cursor-pointer"
+                    className="md:hidden fixed bottom-6 right-6 z-90 w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,95,31,0.6)] hover:shadow-[0_0_30px_rgba(255,95,31,0.8)] hover:scale-110 transition-all duration-300 cursor-pointer"
                     aria-label="Ask Vortix AI"
                 >
                     <FaRobot size={24} />
