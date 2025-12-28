@@ -18,7 +18,6 @@ const initGemini = () => {
 initGemini();
 
 export const getGeminiResponse = async (prompt, contextData = "") => {
-
     if (!model) {
         initGemini();
         if (!model) {

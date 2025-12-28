@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -7,6 +7,7 @@ import { FaUser, FaEnvelope, FaPhone, FaShieldAlt, FaSignOutAlt, FaEdit, FaLock,
 import { motion } from 'framer-motion';
 import { supabase } from '../services/supabase';
 import { logout, setUser } from '../redux/slices/authSlice';
+import Input from '../components/Input';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Profile = () => {
     const [twoFactor, setTwoFactor] = useState(false);
 
     const [show2FAModal, setShow2FAModal] = useState(false);
-    const [otpStep, setOtpStep] = useState('request'); 
+    const [otpStep, setOtpStep] = useState('request');
     const [otpInput, setOtpInput] = useState('');
 
     const [isEditing, setIsEditing] = useState(false);
@@ -120,7 +121,7 @@ const Profile = () => {
         }
     }, [user]);
 
-    const accountType = totalBalance > 10000000 ? 'Pro' : 'Base'; 
+    const accountType = totalBalance > 10000000 ? 'Pro' : 'Base';
 
     const displayUser = {
         name: user?.displayName || 'Guest User',
@@ -212,7 +213,7 @@ const Profile = () => {
 
             const { error: dbError } = await supabase
                 .from('users')
-                .update({ avatar_url: publicUrl }) 
+                .update({ avatar_url: publicUrl })
                 .eq('id', user.uid);
 
             if (dbError) throw dbError;
@@ -322,6 +323,7 @@ const Profile = () => {
                     </div>
 
                     <div className="w-full h-px bg-gray-800/50 mb-8"></div>
+
                     <div className="flex flex-col sm:flex-row justify-end gap-4">
                         {!isEditing ? (
                             <>

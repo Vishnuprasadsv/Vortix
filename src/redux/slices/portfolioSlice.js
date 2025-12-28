@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    totalBalance: 0, 
+    totalBalance: 0,
     assets: [],
 };
 
@@ -12,6 +12,7 @@ const portfolioSlice = createSlice({
         buyAsset: (state, action) => {
             const { id, symbol, name, amount, price } = action.payload;
             const cost = amount * price;
+
             const existingAsset = state.assets.find(asset => asset.id === id);
 
             if (existingAsset) {
@@ -20,7 +21,7 @@ const portfolioSlice = createSlice({
 
                 existingAsset.amount = newAmount;
                 existingAsset.avgPrice = totalValue / newAmount;
-                existingAsset.value = newAmount * price; 
+                existingAsset.value = newAmount * price;
             } else {
                 state.assets.push({
                     id,
@@ -29,12 +30,12 @@ const portfolioSlice = createSlice({
                     amount,
                     avgPrice: price,
                     value: cost,
-                    color: action.payload.color 
+                    color: action.payload.color
                 });
             }
         },
         updatePortfolioPrices: (state, action) => {
-            const currentPrices = action.payload; 
+            const currentPrices = action.payload;
             state.assets.forEach(asset => {
                 if (currentPrices[asset.id]) {
                     asset.value = asset.amount * currentPrices[asset.id];
@@ -53,6 +54,7 @@ const portfolioSlice = createSlice({
                 asset.value = asset.amount * price;
 
                 state.totalBalance += saleValue;
+
                 if (asset.amount <= 0) {
                     state.assets.splice(assetIndex, 1);
                 }

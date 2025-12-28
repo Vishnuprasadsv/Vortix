@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
 import { FaBitcoin, FaEthereum } from 'react-icons/fa';
@@ -31,7 +31,6 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
         if (isNaN(numVal)) {
             setTotal(0);
         } else {
-
             const currentPrice = asset.amount > 0 ? asset.value / asset.amount : 0;
             setTotal(numVal * currentPrice);
         }
@@ -55,7 +54,7 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
     const handleSell = () => {
         if (!amount || parseFloat(amount) <= 0) return;
         if (parseFloat(amount) > asset.amount) {
-            alert("Insufficient balance"); 
+            alert("Insufficient balance");
             return;
         }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaRobot, FaPaperPlane, FaTimes, FaUser, FaLightbulb } from 'react-icons/fa';
 import { getGeminiResponse } from '../services/gemini';
@@ -38,7 +38,6 @@ const VortixAIChat = ({ isOpen, onClose }) => {
         setIsLoading(true);
 
         try {
-   
             const safeCoins = Array.isArray(marketCoins) ? marketCoins : [];
             const contextData = safeCoins.slice(0, 20).map(c =>
                 `${c.name} (${c.symbol}): Price $${c.current_price}, 24h Change ${c.price_change_percentage_24h}%, Mkt Cap $${c.market_cap}`

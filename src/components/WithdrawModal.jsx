@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withdrawFunds } from '../redux/slices/portfolioSlice';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,12 +19,12 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
     useEffect(() => {
         if (isOpen) {
             setStep(1);
-            setAmount(totalBalance); 
+            setAmount(totalBalance);
             setIsProcessing(false);
             setPassword('');
             setPasswordError('');
         }
-    }, [isOpen]); 
+    }, [isOpen]);
 
     if (!isOpen) return null;
 

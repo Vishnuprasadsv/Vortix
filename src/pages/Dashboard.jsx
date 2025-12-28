@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter } from 'react-icons/fa';
 import ChartWidget from '../components/ChartWidget';
-import { TopGainers, TopLosers, MarketSentiment, Watchlist } from '../components/DashboardWidgets';
+import { TopGainers, TopLosers, MarketSentiment, Watchlist, TradingSignals } from '../components/DashboardWidgets';
 import { fetchMarkets } from '../services/api';
 import { COINS as LOADING_PLACEHOLDER } from '../services/mockData';
 import Loader from '../components/Loader';
@@ -14,9 +14,9 @@ const Dashboard = () => {
     const [selectedCoin, setSelectedCoin] = useState(LOADING_PLACEHOLDER[0]);
     const [comparisonCoin, setComparisonCoin] = useState(null);
     const [timeRange, setTimeRange] = useState('24H');
-    const [chartType, setChartType] = useState('area'); 
+    const [chartType, setChartType] = useState('area');
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortOption, setSortOption] = useState('default'); 
+    const [sortOption, setSortOption] = useState('default');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const Dashboard = () => {
 
     const handleCoinSelect = (coin) => {
         setSelectedCoin(coin);
-        setComparisonCoin(null); 
+        setComparisonCoin(null);
     };
 
     const getSortedCoins = () => {
@@ -147,10 +147,11 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <TopGainers coins={coins} />
                     <TopLosers coins={coins} />
                     <MarketSentiment coins={coins} />
+                    <TradingSignals coins={coins} />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -171,7 +172,7 @@ const Dashboard = () => {
                         <Watchlist
                             onCoinSelect={handleCoinSelect}
                             selectedCoinId={selectedCoin.id}
-                            coins={sortedCoins.slice(0, 10)} 
+                            coins={sortedCoins.slice(0, 10)}
                         />
                     </div>
                 </div>
@@ -181,4 +182,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

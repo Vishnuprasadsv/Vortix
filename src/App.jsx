@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { supabase } from './services/supabase';
@@ -58,10 +58,10 @@ function App() {
           dispatch(setUser({
             uid: session.user.id,
             email: session.user.email,
-            displayName: profile?.username || session.user.user_metadata?.full_name, 
-            photoURL: profile?.avatar_url || "", 
+            displayName: profile?.username || session.user.user_metadata?.full_name,
+            photoURL: profile?.avatar_url || "",
             mobile: profile?.mobile || "",
-            ...profile 
+            ...profile
           }));
         } catch (error) {
           console.error("Unexpected error fetching profile:", error);

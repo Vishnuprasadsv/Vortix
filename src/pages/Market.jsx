@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter, FaChevronRight } from 'react-icons/fa';
@@ -30,7 +30,7 @@ const Market = () => {
                 setLoading(false);
             } catch (error) {
                 console.error("Failed to load market data", error);
-                setCoins(LOADING_PLACEHOLDER); 
+                setCoins(LOADING_PLACEHOLDER);
                 setLoading(false);
             }
         };
@@ -273,4 +273,3 @@ const Market = () => {
 };
 
 export default Market;
-

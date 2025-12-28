@@ -1,10 +1,9 @@
-
 const getHash = (str) => {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; 
+        hash = hash & hash;
     }
     return Math.abs(hash);
 };
@@ -19,7 +18,7 @@ const generateData = (basePrice, volatility, points) => {
         price += change;
         if (price < 0.000001) price = 0.000001;
 
-        const time = new Date(now.getTime() - (points - 1 - i) * 1000 * 60 * 60); 
+        const time = new Date(now.getTime() - (points - 1 - i) * 1000 * 60 * 60);
 
         data.push({
             time: time.toISOString(),
@@ -31,7 +30,7 @@ const generateData = (basePrice, volatility, points) => {
 };
 
 export const getCoinData = (coinId, timeRange, currentPrice = null) => {
-    let points = 24; 
+    let points = 24;
     let volatility = 500;
     let basePrice = currentPrice || 100;
 
@@ -60,4 +59,3 @@ export const COINS = [
         total_volume: 15800000000, circulating_supply: 120100000, high_24h: 3050, low_24h: 2900
     }
 ];
-

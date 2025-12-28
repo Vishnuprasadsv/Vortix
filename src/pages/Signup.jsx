@@ -70,7 +70,6 @@ const Signup = () => {
             const user = authData.user;
             if (!user) throw new Error("No user created");
 
-
             const fullUserData = {
                 uid: user.id,
                 email: email,

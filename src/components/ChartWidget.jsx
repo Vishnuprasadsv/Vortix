@@ -53,11 +53,12 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
     };
 
-    const getCoinColor = (coin) => coin?.color || '#22c55e'; 
+    const getCoinColor = (coin) => coin?.color || '#22c55e';
 
     const renderChart = () => {
-        const primaryColor = '#FF5F1F'; 
+        const primaryColor = '#FF5F1F';
         const secondaryColor = '#ef4444';
+
         const commonProps = {
             data: chartData,
             margin: { top: 10, right: 0, left: 0, bottom: 0 }
@@ -112,7 +113,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
         if (chartType === 'line') {
             return (
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <ComposedChart {...commonProps}>
                         <ComparisonAndDefs />
                         <Line yAxisId="left" type="monotone" dataKey="price" stroke={primaryColor} strokeWidth={2} dot={false} />
@@ -124,7 +125,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
         if (chartType === 'candle') {
             return (
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <ComposedChart {...commonProps}>
                         <ComparisonAndDefs />
                         <Bar yAxisId="left" dataKey="price" fill={primaryColor} barSize={10} radius={[2, 2, 0, 0]} />
@@ -136,7 +137,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         }
 
         return (
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <AreaChart {...commonProps}>
                     <ComparisonAndDefs />
                     <Area yAxisId="left" type="monotone" dataKey="price" stroke={primaryColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
@@ -217,7 +218,6 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                         </div>
                     </div>
                 </div>
-
 
                 <div className="flex flex-row items-center gap-4 shrink-0">
                     <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">
@@ -308,7 +308,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
                 </div>
             </div>
 
-            <div className="h-100 w-full mt-auto">
+            <div className="h-400px w-full mt-auto">
                 {renderChart()}
             </div>
 
@@ -323,6 +323,3 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 };
 
 export default ChartWidget;
-
-
-

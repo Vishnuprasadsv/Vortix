@@ -105,8 +105,6 @@ const Header = () => {
 
                             <div className="h-px bg-gray-800 my-2"></div>
 
-
-
                             <div className="flex items-center gap-4 mt-4">
                                 <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden border border-gray-700">
@@ -147,4 +145,3 @@ const Header = () => {
 };
 
 export default Header;
-

@@ -20,6 +20,7 @@ const saveState = (state) => {
         const serializedState = JSON.stringify(state);
         localStorage.setItem('vortix_portfolio', serializedState);
     } catch {
+
     }
 };
 
