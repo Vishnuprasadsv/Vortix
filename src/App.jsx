@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { supabase } from './services/supabase';
-import { setUser, setLoading } from './redux/slices/authSlice';
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { supabase } from "./services/supabase";
+import { setUser, setLoading } from "./redux/slices/authSlice";
 
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import Market from './pages/Market';
-import Portfolio from './pages/Portfolio';
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Market from "./pages/Market";
+import Portfolio from "./pages/Portfolio";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  if (loading) return <div className="flex h-screen w-full items-center justify-center bg-background text-primary animate-pulse">Loading Application...</div>;
+  if (loading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background text-primary animate-pulse">
+        Loading Application...
+      </div>
+    );
 
   if (!user) {
     return <Navigate to="/" />;
@@ -46,29 +51,34 @@ function App() {
       if (session?.user) {
         try {
           const { data: profile, error } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', session.user.id)
+            .from("users")
+            .select("*")
+            .eq("id", session.user.id)
             .single();
 
-          if (error && error.code !== 'PGRST116') {
+          if (error && error.code !== "PGRST116") {
             console.error("Error fetching profile:", error);
           }
 
-          dispatch(setUser({
-            uid: session.user.id,
-            email: session.user.email,
-            displayName: profile?.username || session.user.user_metadata?.full_name,
-            photoURL: profile?.avatar_url || "",
-            mobile: profile?.mobile || "",
-            ...profile
-          }));
+          dispatch(
+            setUser({
+              uid: session.user.id,
+              email: session.user.email,
+              displayName:
+                profile?.username || session.user.user_metadata?.full_name,
+              photoURL: profile?.avatar_url || "",
+              mobile: profile?.mobile || "",
+              ...profile,
+            })
+          );
         } catch (error) {
           console.error("Unexpected error fetching profile:", error);
-          dispatch(setUser({
-            uid: session.user.id,
-            email: session.user.email,
-          }));
+          dispatch(
+            setUser({
+              uid: session.user.id,
+              email: session.user.email,
+            })
+          );
         }
       } else {
         dispatch(setUser(null));
@@ -84,18 +94,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/dashboard"
-          element={
-            <Dashboard />
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Profile />
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/market" element={<Market />} />
         <Route path="/portfolio" element={<Portfolio />} />
       </Routes>
