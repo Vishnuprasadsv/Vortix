@@ -1,7 +1,7 @@
 # Vortix - Cryptocurrency Trading Platform
 
 ## 🔗 Live Demo
-[https://vortix-psi.vercel.app/]
+[ https://vortix-ecru.vercel.app/ ]
 
 ## 📖 Description
 Vortix is a modern, feature-rich cryptocurrency trading platform that provides real-time market data, portfolio management, and AI-powered trading insights. Built with React and powered by Google's Gemini AI, Vortix offers an intuitive interface for both novice and experienced crypto traders to track, analyze, and manage their digital assets with ease.
@@ -109,7 +109,14 @@ This application is fully responsive and tested on:
 All components adapt seamlessly across different screen sizes, with optimized layouts for mobile navigation, chart displays, and data tables.
 
 ## 📸 Screenshots
-[Add 2-3 screenshots of your application showing Dashboard, Market page, and Portfolio]
+### Dashboard & Market
+![Dashboard](./screenshots/dashboard.png)
+![Market Overview](./screenshots/market.png)
+![Login Page](./screenshots/login.png)
+![Create Account](./screenshots/createaccount.png)
+![AI Chatbox](./screenshots/AIchatbox.png)
+![Portfolio Page](./screenshots/portfoliopage.png)
+![Profile Page](./screenshots/profilepage.png)
 
 ## 🎨 Design Choices
 - **Color Scheme**: Modern dark theme with neon orange accents for a futuristic crypto trading aesthetic
@@ -133,16 +140,17 @@ All components adapt seamlessly across different screen sizes, with optimized la
 - **Enhanced AI Features**: Predictive analytics and personalized trading recommendations
 
 ## 👤 Author
-Your Name
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
-- **Email**: your.email@example.com
+Vishnu Prasad 
+- **GitHub**: [@Vishnuprasadsv]( https://github.com/Vishnuprasadsv )
+- **LinkedIn**: [Your Profile]( www.linkedin.com/in/vishnu-prasad-sv )
+- **Email**: vishnusvprasad@gmail.com
 
 ## 📄 License
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the name VishnuPrasad.
 
 ## 🙏 Acknowledgments
 - Thanks to **Entri** for the learning opportunity and project guidance
+- Special thanks to my mentor, **Ajmal**, for the learning opportunity and project guidance.
 - **Google Gemini AI** for providing the AI capabilities
 - **Supabase** for authentication and database services
 - **CoinGecko/CryptoCompare** for cryptocurrency market data
