@@ -110,12 +110,12 @@ All components adapt seamlessly across different screen sizes, with optimized la
 
 ## 📸 Screenshots
 ### Dashboard & Market
-![Dashboard](./screenshots/dashboard.png)
-![Market Overview](./screenshots/market.png)
 ![Login Page](./screenshots/login.png)
 ![Create Account](./screenshots/createaccount.png)
-![AI Chatbox](./screenshots/AIchatbox.png)
+![Dashboard](./screenshots/dashboard.png)
+![Market Overview](./screenshots/market.png)
 ![Portfolio Page](./screenshots/portfoliopage.png)
+![AI Chatbox](./screenshots/AIchatbox.png)
 ![Profile Page](./screenshots/profilepage.png)
 
 ## 🎨 Design Choices
