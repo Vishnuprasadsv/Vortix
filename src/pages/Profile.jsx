@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
@@ -20,7 +20,7 @@ import {
 import { motion } from "framer-motion";
 import { supabase } from "../services/supabase";
 import { logout, setUser } from "../redux/slices/authSlice";
-import Input from "../components/Input";
+import { validatePassword } from "../utils/passwordValidation";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -57,20 +57,21 @@ const Profile = () => {
       return;
     }
 
+    const passwordValidation = validatePassword(newPassword);
+    if (!passwordValidation.isValid) {
+      setStatusPopup({
+        show: true,
+        type: "error",
+        message: passwordValidation.errors.join(". "),
+      });
+      return;
+    }
+
     if (newPassword !== confirmNewPassword) {
       setStatusPopup({
         show: true,
         type: "error",
         message: "New passwords do not match",
-      });
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      setStatusPopup({
-        show: true,
-        type: "error",
-        message: "Password must be at least 6 characters",
       });
       return;
     }
@@ -646,7 +647,7 @@ const Profile = () => {
           </div>
         )}
         {statusPopup.show && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

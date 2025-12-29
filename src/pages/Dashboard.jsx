@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { motion } from "framer-motion";
 import { FaSearch, FaFilter } from "react-icons/fa";
@@ -197,7 +197,7 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 min-h-[500px]">
+          <div className="lg:col-span-2 min-h-125">
             <ChartWidget
               selectedCoin={selectedCoin}
               comparisonCoin={comparisonCoin}

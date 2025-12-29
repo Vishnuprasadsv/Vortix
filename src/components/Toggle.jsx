@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const Toggle = ({ enabled, onChange }) => {
@@ -10,6 +9,7 @@ const Toggle = ({ enabled, onChange }) => {
       }`}
     >
       <span className="sr-only">Enable notification</span>
+
       <motion.span
         layout
         transition={{ type: "spring", stiffness: 700, damping: 30 }}

@@ -6,6 +6,7 @@ import { setUser, setError } from "../redux/slices/authSlice";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { motion } from "framer-motion";
+import { validatePassword } from "../utils/passwordValidation";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -25,6 +26,13 @@ const Signup = () => {
     setLoading(true);
     setLocalError("");
     console.log("1. Starting signup...");
+
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.isValid) {
+      setLocalError(passwordValidation.errors.join(". "));
+      setLoading(false);
+      return;
+    }
 
     if (password !== confirmPassword) {
       setLocalError("Passwords do not match.");
@@ -96,7 +104,7 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
 
       {loading ? (
         <motion.div

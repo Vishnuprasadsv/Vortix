@@ -296,7 +296,7 @@ const Market = () => {
                                 <div className="text-xs text-text-muted mb-1">
                                   Volume (24h)
                                 </div>
-                                <div className="text-white font-medium break-words">
+                                <div className="text-white font-medium wrap-break-word">
                                   ${coin.total_volume.toLocaleString()}
                                 </div>
                               </div>
@@ -304,7 +304,7 @@ const Market = () => {
                                 <div className="text-xs text-text-muted mb-1">
                                   Circulating Supply
                                 </div>
-                                <div className="text-white font-medium break-words">
+                                <div className="text-white font-medium wrap-break-word">
                                   {coin.circulating_supply.toLocaleString()}{" "}
                                   {coin.symbol.toUpperCase()}
                                 </div>
@@ -313,7 +313,7 @@ const Market = () => {
                                 <div className="text-xs text-text-muted mb-1">
                                   24h High
                                 </div>
-                                <div className="text-green-500 font-medium break-words">
+                                <div className="text-green-500 font-medium wrap-break-word">
                                   ${coin.high_24h}
                                 </div>
                               </div>
@@ -321,7 +321,7 @@ const Market = () => {
                                 <div className="text-xs text-text-muted mb-1">
                                   24h Low
                                 </div>
-                                <div className="text-red-500 font-medium break-words">
+                                <div className="text-red-500 font-medium wrap-break-word">
                                   ${coin.low_24h}
                                 </div>
                               </div>
@@ -331,7 +331,7 @@ const Market = () => {
                                     <div className="text-xs text-text-muted mb-1">
                                       Market Cap
                                     </div>
-                                    <div className="text-white font-medium break-words">
+                                    <div className="text-white font-medium wrap-break-word">
                                       ${coin.market_cap.toLocaleString()}
                                     </div>
                                   </div>

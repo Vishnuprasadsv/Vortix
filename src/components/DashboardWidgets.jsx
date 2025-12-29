@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import {
   FaArrowUp,
   FaArrowDown,
-  FaBitcoin,
-  FaEthereum,
   FaChartBar,
-  FaSearch,
   FaLightbulb,
 } from "react-icons/fa";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
@@ -165,7 +162,7 @@ export const MarketSentiment = () => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
-          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-text-muted transform translate-y-[2px]">
+          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-text-muted transform translate-y-0.5">
             {sentimentValue}
           </div>
         </div>
@@ -258,7 +255,7 @@ export const Watchlist = ({ onCoinSelect, selectedCoinId, coins = [] }) => {
         </button>
       </div>
 
-      <div className="space-y-4 overflow-y-auto max-h-[500px] custom-scrollbar">
+      <div className="space-y-4 overflow-y-auto max-h-125 custom-scrollbar">
         {displayedCoins.map((coin, idx) => (
           <div
             key={coin.id}

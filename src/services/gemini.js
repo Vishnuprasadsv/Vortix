@@ -44,6 +44,7 @@ export const getGeminiResponse = async (prompt, contextData = "") => {
 
     const result = await model.generateContent(systemPrompt);
     const response = await result.response;
+
     return response.text();
   } catch (error) {
     console.error("Gemini API Error Details:", error);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import VortixAIChat from "../VortixAIChat";
 
 const Header = () => {
+  // Geting user from Redux store
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,16 +18,21 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
+      // Sign out from Supabase
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      // Clearing user data from Redux
       dispatch(logout());
+      // Navigate to login page
       navigate("/");
+      // Close mobile
       setIsMobileMenuOpen(false);
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
 
+  // Navigation menu links
   const navLinks = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Market", path: "/market" },
@@ -38,7 +44,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-[100]">
+      <header className="bg-surface border-b border-gray-800 h-16 flex items-center justify-between px-6 sticky top-0 z-100">
         <div className="flex items-center gap-2 z-50">
           <img
             src="/logo.png"
@@ -161,7 +167,7 @@ const Header = () => {
       </header>
 
       {["/dashboard", "/market"].includes(location.pathname) && !isChatOpen && (
-        <div className="md:hidden fixed inset-x-0 bottom-0 z-[90] pointer-events-none flex justify-end px-6 pb-6 mx-auto max-w-7xl w-full">
+        <div className="md:hidden fixed inset-x-0 bottom-0 z-90 pointer-events-none flex justify-end px-6 pb-6 mx-auto max-w-7xl w-full">
           <button
             onClick={toggleChat}
             className="pointer-events-auto w-14 h-14 rounded-full bg-[#FF5F1F] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,95,31,0.6)] hover:shadow-[0_0_30px_rgba(255,95,31,0.8)] hover:scale-110 transition-all duration-300 cursor-pointer"

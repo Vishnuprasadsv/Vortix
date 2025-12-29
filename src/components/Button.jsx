@@ -1,5 +1,3 @@
-import React from "react";
-import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
 const Button = ({
@@ -9,9 +7,11 @@ const Button = ({
   isLoading = false,
   ...props
 }) => {
+  // buttons styles
   const baseStyles =
     "px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2";
 
+  // buttons varients
   const variants = {
     primary: "bg-primary text-black hover:bg-orange-600 focus:ring-primary",
     secondary:

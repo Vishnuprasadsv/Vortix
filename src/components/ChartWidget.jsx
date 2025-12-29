@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -278,7 +277,7 @@ const ChartWidget = ({
               <img
                 src={selectedCoin.image}
                 alt=""
-                className="w-8 h-8 rounded-full flex-shrink-0"
+                className="w-8 h-8 rounded-full shrink-0"
               />
             )}
             <div className="flex items-baseline gap-2 min-w-0 overflow-hidden">
@@ -296,7 +295,7 @@ const ChartWidget = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={() => setIsBuyModalOpen(true)}
               className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-bold py-1.5 px-6 rounded transition-colors text-sm cursor-pointer whitespace-nowrap flex-1 md:flex-none"
@@ -366,7 +365,7 @@ const ChartWidget = ({
         </div>
 
         {/* Controls (Time Range & Chart Type) */}
-        <div className="flex flex-row items-center justify-between md:justify-end gap-4 flex-shrink-0">
+        <div className="flex flex-row items-center justify-between md:justify-end gap-4 shrink-0">
           <div className="hidden md:flex bg-black/40 rounded-lg p-1 items-center gap-1">
             {["24H", "7D", "30D"].map((tab) => (
               <button
@@ -495,7 +494,7 @@ const ChartWidget = ({
         </div>
       </div>
 
-      <div className="h-[400px] w-full mt-auto">{renderChart()}</div>
+      <div className="h-100 w-full mt-auto">{renderChart()}</div>
 
       <BuyModal
         isOpen={isBuyModalOpen}
