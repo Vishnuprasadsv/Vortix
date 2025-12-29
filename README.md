@@ -1,16 +1,152 @@
-# React + Vite
+# Vortix - Cryptocurrency Trading Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🔗 Live Demo
+[Your Deployed Link Here - e.g., https://vortix.vercel.app]
 
-Currently, two official plugins are available:
+## 📖 Description
+Vortix is a modern, feature-rich cryptocurrency trading platform that provides real-time market data, portfolio management, and AI-powered trading insights. Built with React and powered by Google's Gemini AI, Vortix offers an intuitive interface for both novice and experienced crypto traders to track, analyze, and manage their digital assets with ease.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
+- **Real-Time Market Data**: Live cryptocurrency prices, 24h changes, and market trends
+- **Interactive Charts**: Advanced charting with comparison tools and multiple timeframes
+- **Portfolio Management**: Track your holdings, buy/sell assets, and monitor performance
+- **AI-Powered Assistant**: VortixAI chatbot for cryptocurrency insights and market analysis
+- **User Authentication**: Secure login/signup with Supabase integration
+- **Profile Management**: Customizable user profiles with image upload and password management
+- **Two-Factor Authentication**: Enhanced security with 2FA support
+- **Market Analytics**: Top gainers, losers, market sentiment, and trading signals
+- **Funds Management**: Deposit and withdraw funds seamlessly
+- **Responsive design for all devices**: Optimized for mobile, tablet, and desktop
 
-## React Compiler
+## 🎯 Project Goals
+This project was developed to demonstrate proficiency in building modern web applications with real-world functionality. The main objectives were to:
+- Master React.js and state management with Redux Toolkit
+- Integrate third-party APIs and AI services (Google Gemini AI)
+- Implement secure authentication and database management with Supabase
+- Create a responsive, visually appealing UI with Tailwind CSS
+- Build reusable components and maintain clean code architecture
+- Implement real-time data visualization with interactive charts
+- Develop a complete full-stack application from concept to deployment
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Technologies Used
+- **Frontend:** React.js (v19.2.0)
+- **Styling:** Tailwind CSS v4, CSS3, Framer Motion for animations
+- **State Management:** Redux Toolkit
+- **Routing:** React Router DOM v7
+- **Backend/Auth:** Supabase (Authentication & Database)
+- **APIs:** Google Generative AI (Gemini), Cryptocurrency market data
+- **Charts:** Recharts for data visualization
+- **Icons:** React Icons, Lucide React
+- **HTTP Client:** Axios
+- **Build Tool:** Vite
+- **Utilities:** clsx, tailwind-merge
+- **Deployment:** Vercel
 
-## Expanding the ESLint configuration
+## 🤖 AI Integration
+Vortix features an intelligent AI assistant powered by Google's Gemini AI:
+- **VortixAI Chatbot**: Provides real-time cryptocurrency insights, market analysis, and trading recommendations
+- **Context-Aware Responses**: Trained on cryptocurrency-specific data to deliver accurate and relevant information
+- **Interactive UI**: Beautiful orange neon-themed chat interface with pre-set questions for quick access
+- **Integration Challenges**: Successfully integrated Gemini AI API with proper error handling and rate limiting
+- **User Experience**: Accessible via a floating button on Dashboard and Market pages for instant assistance
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- A Supabase account (for authentication and database)
+- Google Gemini API key (for AI features)
+
+### Installation Steps
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/vortix.git
+```
+
+2. **Navigate to project directory**
+```bash
+cd vortix
+```
+
+3. **Install dependencies**
+```bash
+npm install
+```
+
+4. **Create .env file**
+Create a `.env` file in the root directory and add your API keys:
+```env
+VITE_SUPABASE_URL=your_supabase_url_here
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+5. **Set up Supabase Database**
+- Create a new Supabase project
+- Run the SQL scripts in the following order:
+  - `setup_database.sql` - Creates user profiles table
+  - `setup_storage.sql` - Sets up storage for profile images
+  - `setup_trigger.sql` - Creates automatic profile creation trigger
+  - `fix_storage_policies.sql` - Configures storage policies
+  - `fix_rls_policy.sql` - Sets up row-level security
+
+6. **Start development server**
+```bash
+npm run dev
+```
+
+7. **Open in browser**
+Navigate to `http://localhost:5173` in your browser
+
+## 📱 Responsive Design
+This application is fully responsive and tested on:
+- Mobile devices (375px and up)
+- Tablets (768px and up)
+- Desktop (1024px and up)
+
+All components adapt seamlessly across different screen sizes, with optimized layouts for mobile navigation, chart displays, and data tables.
+
+## 📸 Screenshots
+[Add 2-3 screenshots of your application showing Dashboard, Market page, and Portfolio]
+
+## 🎨 Design Choices
+- **Color Scheme**: Modern dark theme with neon orange accents for a futuristic crypto trading aesthetic
+- **Typography**: Clean, professional fonts for optimal readability
+- **Animations**: Subtle micro-interactions using Framer Motion to enhance user engagement
+- **Component Architecture**: Modular, reusable components following React best practices
+- **State Management**: Centralized Redux store for predictable state updates across the application
+- **User Experience**: Intuitive navigation with sticky headers, loading states, and informative error messages
+
+## 🐛 Known Issues
+- None at the moment. All major features are fully functional.
+
+## 🔮 Future Enhancements
+- **Real-Time WebSocket Integration**: Live price updates without page refresh
+- **Advanced Trading Features**: Limit orders, stop-loss, and automated trading strategies
+- **Price Alerts**: Customizable notifications for price movements
+- **Historical Data Analysis**: Extended chart data with technical indicators (RSI, MACD, etc.)
+- **Multi-Currency Support**: Support for fiat currency conversions
+- **Social Features**: Community discussions and shared trading strategies
+- **Mobile App**: Native iOS and Android applications
+- **Enhanced AI Features**: Predictive analytics and personalized trading recommendations
+
+## 👤 Author
+Your Name
+- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
+- **Email**: your.email@example.com
+
+## 📄 License
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+- Thanks to **Entri** for the learning opportunity and project guidance
+- **Google Gemini AI** for providing the AI capabilities
+- **Supabase** for authentication and database services
+- **CoinGecko/CryptoCompare** for cryptocurrency market data
+- **React Icons** and **Lucide React** for beautiful iconography
+- **Recharts** library for powerful chart visualizations
+- **Tailwind CSS** team for the amazing utility-first CSS framework
+- **Vercel** for seamless deployment and hosting
