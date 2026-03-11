@@ -110,13 +110,13 @@ All components adapt seamlessly across different screen sizes, with optimized la
 
 ## 📸 Screenshots
 ### Dashboard & Market
-![Login Page](./screenshots/login.png)
-![Create Account](./screenshots/createaccount.png)
-![Dashboard](./screenshots/dashboard.png)
-![Market Overview](./screenshots/market.png)
-![Portfolio Page](./screenshots/portfoliopage.png)
-![AI Chatbox](./screenshots/AIchatbox.png)
-![Profile Page](./screenshots/profilepage.png)
+![Login Page](./frontend/screenshots/login.png)
+![Create Account](./frontend/screenshots/createaccount.png)
+![Dashboard](./frontend/screenshots/dashboard.png)
+![Market Overview](./frontend/screenshots/market.png)
+![Portfolio Page](./frontend/screenshots/portfoliopage.png)
+![AI Chatbox](./frontend/screenshots/AIchatbox.png)
+![Profile Page](./frontend/screenshots/profilepage.png)
 
 ## 🎨 Design Choices
 - **Color Scheme**: Modern dark theme with neon orange accents for a futuristic crypto trading aesthetic
