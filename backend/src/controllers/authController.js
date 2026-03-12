@@ -75,7 +75,12 @@ const checkUsername = async (req, res) => {
         }
         res.json({ available: true });
     } catch (error) {
-        res.status(500).json({ msg: "Server error checking username", error: error.message });
+        console.error("CheckUsername Error:", error);
+        res.status(500).json({ 
+            msg: "Server error checking username", 
+            error: error.message,
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack 
+        });
     }
 }
 
