@@ -1,7 +1,7 @@
 # Vortix - Cryptocurrency Trading Platform
 
 ## 🔗 Live Demo
-[ https://vortix-ecru.vercel.app/ ]
+[Your Deployed Link Here - e.g., https://vortix.vercel.app]
 
 ## 📖 Description
 Vortix is a modern, feature-rich cryptocurrency trading platform that provides real-time market data, portfolio management, and AI-powered trading insights. Built with React and powered by Google's Gemini AI, Vortix offers an intuitive interface for both novice and experienced crypto traders to track, analyze, and manage their digital assets with ease.
@@ -62,7 +62,7 @@ Vortix features an intelligent AI assistant powered by Google's Gemini AI:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/Vishnuprasadsv/Vortix.git
+git clone https://github.com/yourusername/vortix.git
 ```
 
 2. **Navigate to project directory**
@@ -78,27 +78,35 @@ npm install
 4. **Create .env file**
 Create a `.env` file in the root directory and add your API keys:
 ```env
-VITE_SUPABASE_URL= added in vercel enviornment variables due to security reasons
-VITE_SUPABASE_ANON_KEY= added in vercel enviornment variables due to security reasons
-VITE_GEMINI_API_KEY= added in vercel enviornment variables due to security reasons
+VITE_SUPABASE_URL=your_supabase_url_here
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-5. **Set up Supabase Database**
-- Create a new Supabase project
-- Run the SQL scripts in the following order:
-  - `setup_database.sql` - Creates user profiles table
-  - `setup_storage.sql` - Sets up storage for profile images
-  - `setup_trigger.sql` - Creates automatic profile creation trigger
-  - `fix_storage_policies.sql` - Configures storage policies
-  - `fix_rls_policy.sql` - Sets up row-level security
+5. **Set up Local Database (MongoDB)**
+- Ensure you have a MongoDB cluster (e.g., MongoDB Atlas) or a local MongoDB instance running.
+- Add `MONGO_URI` to the `backend/.env` file. (Create this `.env` structure if needed).
 
-6. **Start development server**
+6. **Start development servers**
+
+For the backend:
 ```bash
+cd backend
+npm install
 npm run dev
 ```
 
-7. **Open in browser**
-Navigate to `http://localhost:5173` in your browser
+For the frontend (in a new terminal):
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+7. **Deployment Instructions (Vercel)**
+This project is structured to deploy the Frontend and Backend separately on Vercel:
+- **Backend**: Import the `backend` folder as a project in Vercel. Make sure the framework preset is set to Node.js. Vercel will automatically use the `vercel.json` to deploy it as Serverless Functions.
+- **Frontend**: Import the `frontend` folder as a project in Vercel. Select Vite as the framework. Set the `VITE_API_URL` environment variable to the production URL of your deployed backend.
 
 ## 📱 Responsive Design
 This application is fully responsive and tested on:
@@ -139,7 +147,7 @@ All components adapt seamlessly across different screen sizes, with optimized la
 - **Mobile App**: Native iOS and Android applications
 - **Enhanced AI Features**: Predictive analytics and personalized trading recommendations
 
-## 👤 Author
+### 👤 Author
 Vishnu Prasad 
 - **GitHub**: [@Vishnuprasadsv]( https://github.com/Vishnuprasadsv )
 - **LinkedIn**: [Your Profile]( www.linkedin.com/in/vishnu-prasad-sv )
