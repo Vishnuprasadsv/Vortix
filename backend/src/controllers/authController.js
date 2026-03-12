@@ -6,6 +6,7 @@ import { cloudinary } from "../config/cloudinary.js";
 const login = async (req, res) => {
     try {
         let { email, password } = req.body;
+        email = email.trim().toLowerCase();
         let user = await userModel.findOne({ email });
 
         if (!user) {
@@ -39,8 +40,9 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     try {
         const { username, email, password, mobile, agreed_to_terms } = req.body;
+        const normalizedEmail = email.trim().toLowerCase();
 
-        const isExising = await userModel.findOne({ email: email })
+        const isExising = await userModel.findOne({ email: normalizedEmail })
 
         if (isExising) {
             return res.status(400).json({ msg: "user already exist with this email" })
@@ -51,7 +53,7 @@ const register = async (req, res) => {
 
         const newUser = await userModel.create({
             userName: username,
-            email,
+            email: normalizedEmail,
             password: hashedPassword,
             mobile,
             agreed_to_terms
