@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-let baseurl = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000').replace(/\/$/, '');
-if (!baseurl.endsWith('/api')) {
-    baseurl += '/api';
-}
-const API_URL = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000').replace(/\/api\/?$/, '') + '/api';
-console.log("DEBUG: Final API_URL used by frontend:", API_URL);
+// VITE_API_URL on Vercel should be set to: https://vortixbackend.vercel.app/api
+// Strip any trailing /api to avoid double-suffix, then re-add it consistently
+const rawBase = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+const API_URL = rawBase.replace(/\/api\/?$/, '') + '/api';
+console.log("API_URL:", API_URL);
 
 export const apiClient = axios.create({
     baseURL: API_URL,
