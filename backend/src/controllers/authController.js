@@ -1,33 +1,38 @@
 import userModel from "../models/userModel.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { cloudinary } from "../config/cloudinary.js";
 
 const login = async (req, res) => {
-    let { email, password } = req.body;
-    let user = await userModel.findOne({ email });
+    try {
+        let { email, password } = req.body;
+        let user = await userModel.findOne({ email });
 
-    if (!user) {
-        return res.status(400).json({ msg: "Couldn't find a user with this email id. Please register before login" })
-    }
+        if (!user) {
+            return res.status(400).json({ msg: "Couldn't find a user with this email id. Please register before login" })
+        }
 
-    let isMatch = await bcrypt.compare(password, user.password)
-    if (isMatch) {
-        const formattedUser = {
-            ...user.toObject(),
-            uid: user._id,
-            displayName: user.userName,
-            photoURL: user.avatar_url || ""
-        };
+        let isMatch = await bcrypt.compare(password, user.password)
+        if (isMatch) {
+            const formattedUser = {
+                ...user.toObject(),
+                uid: user._id,
+                displayName: user.userName,
+                photoURL: user.avatar_url || ""
+            };
 
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN, { expiresIn: "7d" })
-        res.status(200).json({
-            msg: "logged in successfully",
-            token,
-            user: formattedUser
-        })
-    } else {
-        return res.status(400).json({ msg: "email or password not matching" })
+            const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN, { expiresIn: "7d" })
+            res.status(200).json({
+                msg: "logged in successfully",
+                token,
+                user: formattedUser
+            })
+        } else {
+            return res.status(400).json({ msg: "email or password not matching" })
+        }
+    } catch (error) {
+        console.log("Login Error:", error.message);
+        res.status(500).json({ msg: "Internal server error during login", error: error.message });
     }
 }
 
