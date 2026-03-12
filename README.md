@@ -1,7 +1,7 @@
 # Vortix - Cryptocurrency Trading Platform
 
 ## 🔗 Live Demo
-[Your Deployed Link Here - e.g., https://vortix.vercel.app]
+https://vortix-nine.vercel.app/
 
 ## 📖 Description
 Vortix is a modern, feature-rich cryptocurrency trading platform that provides real-time market data, portfolio management, and AI-powered trading insights. Built with React and powered by Google's Gemini AI, Vortix offers an intuitive interface for both novice and experienced crypto traders to track, analyze, and manage their digital assets with ease.
