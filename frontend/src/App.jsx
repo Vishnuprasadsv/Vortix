@@ -1,26 +1,21 @@
-import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { supabase } from "./services/supabase";
-import { setUser, setLoading } from "./redux/slices/authSlice";
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileAPI } from './services/api';
+import { setUser, setLoading } from './redux/slices/authSlice';
+import { fetchPortfolioFromDB } from './redux/slices/portfolioSlice';
 
-// importing all pages
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-import Market from "./pages/Market";
-import Portfolio from "./pages/Portfolio";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Market from './pages/Market';
+import Portfolio from './pages/Portfolio';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  if (loading)
-    return (
-      <div className="flex h-screen w-full items-center justify-center bg-background text-primary animate-pulse">
-        Loading Application...
-      </div>
-    );
+  if (loading) return <div className="flex h-screen w-full items-center justify-center bg-background text-primary animate-pulse">Loading Application...</div>;
 
   if (!user) {
     return <Navigate to="/" />;
@@ -36,58 +31,33 @@ function App() {
     console.log("App mounted, setting up auth listener");
     dispatch(setLoading(true));
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      handleSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      handleSession(session);
-    });
-
-    async function handleSession(session) {
-      console.log("Auth state changed:", session?.user?.email || "No user");
-
-      if (session?.user) {
+    const initAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
         try {
-          const { data: profile, error } = await supabase
-            .from("users")
-            .select("*")
-            .eq("id", session.user.id)
-            .single();
-
-          if (error && error.code !== "PGRST116") {
-            console.error("Error fetching profile:", error);
-          }
-
-          dispatch(
-            setUser({
-              uid: session.user.id,
-              email: session.user.email,
-              displayName:
-                profile?.username || session.user.user_metadata?.full_name,
-              photoURL: profile?.avatar_url || "",
-              mobile: profile?.mobile || "",
-              ...profile,
-            })
-          );
+          const { user } = await getProfileAPI(); 
+          dispatch(setUser({
+            ...user,
+            uid: user._id || user.uid,
+            email: user.email,
+            displayName: user.userName || user.displayName,
+            photoURL: user.photoURL || user.avatar_url || "",
+            mobile: user.mobile || "",
+            agreed_to_terms: user.agreed_to_terms
+          }));
+          dispatch(fetchPortfolioFromDB());
         } catch (error) {
-          console.error("Unexpected error fetching profile:", error);
-          dispatch(
-            setUser({
-              uid: session.user.id,
-              email: session.user.email,
-            })
-          );
+          console.error("Error hydrating profile, clearing token.", error);
+          localStorage.removeItem('token');
+          dispatch(setUser(null));
         }
       } else {
         dispatch(setUser(null));
       }
       dispatch(setLoading(false));
-    }
+    };
 
-    return () => subscription.unsubscribe();
+    initAuth();
   }, [dispatch]);
 
   return (
@@ -95,8 +65,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard />
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Profile />
+          }
+        />
         <Route path="/market" element={<Market />} />
         <Route path="/portfolio" element={<Portfolio />} />
       </Routes>

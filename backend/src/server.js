@@ -24,7 +24,10 @@ app.use('/api/portfolio', portfolioRoute);
 
 dbconnect()
 
-app.listen(PORT, () => {
-    console.log(`server is runnit at port: ${PORT}`);
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`server is running at port: ${PORT}`);
+    });
+}
 
-})
+export default app;
