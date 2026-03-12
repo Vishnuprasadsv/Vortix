@@ -11,7 +11,7 @@ Vortix is a modern, feature-rich cryptocurrency trading platform that provides r
 - **Interactive Charts**: Advanced charting with comparison tools and multiple timeframes
 - **Portfolio Management**: Track your holdings, buy/sell assets, and monitor performance
 - **AI-Powered Assistant**: VortixAI chatbot for cryptocurrency insights and market analysis
-- **User Authentication**: Secure login/signup with Supabase integration
+- **User Authentication**: Secure login/signup with JWT-based authentication
 - **Profile Management**: Customizable user profiles with image upload and password management
 - **Two-Factor Authentication**: Enhanced security with 2FA support
 - **Market Analytics**: Top gainers, losers, market sentiment, and trading signals
@@ -22,7 +22,7 @@ Vortix is a modern, feature-rich cryptocurrency trading platform that provides r
 This project was developed to demonstrate proficiency in building modern web applications with real-world functionality. The main objectives were to:
 - Master React.js and state management with Redux Toolkit
 - Integrate third-party APIs and AI services (Google Gemini AI)
-- Implement secure authentication and database management with Supabase
+- Implement secure JWT-based authentication and MongoDB database management
 - Create a responsive, visually appealing UI with Tailwind CSS
 - Build reusable components and maintain clean code architecture
 - Implement real-time data visualization with interactive charts
@@ -33,7 +33,10 @@ This project was developed to demonstrate proficiency in building modern web app
 - **Styling:** Tailwind CSS v4, CSS3, Framer Motion for animations
 - **State Management:** Redux Toolkit
 - **Routing:** React Router DOM v7
-- **Backend/Auth:** Supabase (Authentication & Database)
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (Mongoose ODM)
+- **Auth:** JWT (JSON Web Tokens), bcryptjs
+- **File Uploads:** Cloudinary (profile image storage)
 - **APIs:** Google Generative AI (Gemini), Cryptocurrency market data
 - **Charts:** Recharts for data visualization
 - **Icons:** React Icons, Lucide React
@@ -55,7 +58,8 @@ Vortix features an intelligent AI assistant powered by Google's Gemini AI:
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm or yarn
-- A Supabase account (for authentication and database)
+- A MongoDB Atlas cluster or local MongoDB instance
+- A Cloudinary account (for profile image uploads)
 - Google Gemini API key (for AI features)
 
 ### Installation Steps
@@ -76,11 +80,20 @@ npm install
 ```
 
 4. **Create .env file**
-Create a `.env` file in the root directory and add your API keys:
+Create a `.env` file in the root directory in the backend folder and add your API keys:
 ```env
-VITE_SUPABASE_URL=your_supabase_url_here
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+PORT = PORT
+MONGODB_URI = Your_mongodb_cluster-url
+JWT_TOKEN = Your_secret_token
+CLOUDINAARY_API = Your_cloudinary_api_key
+CLOUDINAARY_NAME = Your_cloudinary_name
+CLOUDINAARY_SECRET = Your_cloudinary_secret
+```
+
+Create a `.env` file in the root directory in the frontend folder and add your API keys:
+```env
+VITE_GEMINI_API_KEY=Your_gemini_api_key
+VITE_API_URL=Your_api_url{add /api at the end of your api url}
 ```
 
 5. **Set up Local Database (MongoDB)**
@@ -160,7 +173,8 @@ This project is open source and available under the name VishnuPrasad.
 - Thanks to **Entri** for the learning opportunity and project guidance
 - Special thanks to my mentor, **Ajmal**, for the learning opportunity and project guidance.
 - **Google Gemini AI** for providing the AI capabilities
-- **Supabase** for authentication and database services
+- **MongoDB Atlas** for database services
+- **Cloudinary** for profile image hosting
 - **CoinGecko/CryptoCompare** for cryptocurrency market data
 - **React Icons** and **Lucide React** for beautiful iconography
 - **Recharts** library for powerful chart visualizations
