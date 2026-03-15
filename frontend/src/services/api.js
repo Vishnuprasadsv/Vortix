@@ -6,6 +6,7 @@ const rawBase = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_UR
 const API_URL = rawBase.replace(/\/api\/?$/, '') + '/api';
 console.log("API_URL:", API_URL);
 
+// Create a customized axios client for making API requests to the backend
 export const apiClient = axios.create({
     baseURL: API_URL,
     headers: {
@@ -13,6 +14,7 @@ export const apiClient = axios.create({
     },
 });
 
+// Interceptor to automatically attach the user's JWT token to every request
 apiClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -23,11 +25,13 @@ apiClient.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
+// Register a new user
 export const registerAPI = async (userData) => {
     const response = await apiClient.post('/register', userData);
     return response.data;
 };
 
+// Log in an existing user
 export const loginAPI = async (credentials) => {
     const response = await apiClient.post('/login', credentials);
     return response.data;
@@ -74,6 +78,7 @@ export const updatePortfolioAPI = async (portfolioData) => {
 
 const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
 
+// Fetch live cryptocurrency market data from CoinGecko API
 export const fetchMarkets = async () => {
     try {
         const response = await axios.get(COINGECKO_API_URL);

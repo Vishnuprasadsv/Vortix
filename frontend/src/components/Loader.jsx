@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
+// Animated loading spinner component using framer-motion
 const Loader = ({ fullScreen = true }) => {
     const containerClasses = fullScreen
         ? "fixed inset-0 flex items-center justify-center bg-[#0F1114] z-50"

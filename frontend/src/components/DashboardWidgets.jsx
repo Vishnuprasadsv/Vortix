@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaArrowUp, FaArrowDown, FaBitcoin, FaEthereum, FaChartBar, FaSearch, FaLightbulb } from 'react-icons/fa';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
+// Widget displaying the top 3 coins with highest 24h percentage increase
 export const TopGainers = ({ coins = [] }) => {
     const gainers = [...coins]
         .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
@@ -29,6 +30,7 @@ export const TopGainers = ({ coins = [] }) => {
     );
 };
 
+// Widget displaying the top 3 coins with largest 24h percentage drop
 export const TopLosers = ({ coins = [] }) => {
     const losers = [...coins]
         .sort((a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h)
@@ -56,9 +58,11 @@ export const TopLosers = ({ coins = [] }) => {
     );
 };
 
+// Widget simulating market sentiment (Fear & Greed Index)
 export const MarketSentiment = () => {
     const [sentimentValue, setSentimentValue] = useState(65);
 
+    // Generate a random sentiment value on component mount
     useEffect(() => {
         const randomSentiment = Math.floor(Math.random() * (85 - 25 + 1)) + 25;
         setSentimentValue(randomSentiment);
@@ -125,6 +129,7 @@ export const MarketSentiment = () => {
     );
 };
 
+// Widget analyzing recent price changes to simulate "Buy/Sell/Neutral" signals
 export const TradingSignals = ({ coins = [] }) => {
     const signals = coins.slice(0, 3).map(coin => {
         const change = coin.price_change_percentage_24h || 0;
@@ -169,6 +174,7 @@ export const TradingSignals = ({ coins = [] }) => {
     );
 };
 
+// Widget displaying a list of selected coins to monitor
 export const Watchlist = ({ onCoinSelect, selectedCoinId, coins = [] }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 

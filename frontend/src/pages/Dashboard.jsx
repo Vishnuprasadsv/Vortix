@@ -7,7 +7,7 @@ import { TopGainers, TopLosers, MarketSentiment, Watchlist, TradingSignals } fro
 import { fetchMarkets } from '../services/api';
 import { COINS as LOADING_PLACEHOLDER } from '../services/mockData';
 import Loader from '../components/Loader';
-
+// The main Dashboard page displaying market overview, charts, and widgets
 const Dashboard = () => {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,6 +19,7 @@ const Dashboard = () => {
     const [sortOption, setSortOption] = useState('default');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+    // Fetch initial market data on component mount
     useEffect(() => {
         const getCoins = async () => {
             try {
@@ -43,6 +44,7 @@ const Dashboard = () => {
         setComparisonCoin(null);
     };
 
+    // Filter and sort the coin list based on user selections
     const getSortedCoins = () => {
         let sorted = [...coins];
         if (searchQuery) {

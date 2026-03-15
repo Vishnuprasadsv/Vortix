@@ -10,7 +10,7 @@ const PRE_QUESTIONS = [
     "Current market trends regarding solana?",
     "How to diversify my portfolio?"
 ];
-
+// Floating AI chat interface powered by Gemini to answer crypto questions
 const VortixAIChat = ({ isOpen, onClose }) => {
     const [messages, setMessages] = useState([
         { id: 1, text: "Hello! I'm VortixAI. Ask me anything about crypto or your portfolio!", sender: 'ai' }
@@ -21,6 +21,7 @@ const VortixAIChat = ({ isOpen, onClose }) => {
 
     const { data: marketCoins } = useSelector((state) => state.market);
 
+    // Helper to auto-scroll chat to the latest message
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
@@ -29,6 +30,7 @@ const VortixAIChat = ({ isOpen, onClose }) => {
         scrollToBottom();
     }, [messages]);
 
+    // Send message to the AI and handle UI updates
     const handleSend = async (text = input) => {
         if (!text.trim()) return;
 

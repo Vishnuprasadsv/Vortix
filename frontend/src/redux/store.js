@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import marketReducer from './slices/marketSlice';
 import portfolioReducer from './slices/portfolioSlice';
-
+// Load previously saved portfolio state from LocalStorage to persist user data
 const loadState = () => {
     try {
         const serializedState = localStorage.getItem('vortix_portfolio');
@@ -14,7 +14,7 @@ const loadState = () => {
         return undefined;
     }
 };
-
+// Save current state down to LocalStorage
 const saveState = (state) => {
     try {
         const serializedState = JSON.stringify(state);
@@ -24,7 +24,7 @@ const saveState = (state) => {
 };
 
 const preloadedPortfolio = loadState();
-
+// Configure and initialize the Redux store with slices
 export const store = configureStore({
     reducer: {
         auth: authReducer,           
@@ -35,7 +35,7 @@ export const store = configureStore({
         portfolio: preloadedPortfolio
     }
 });
-
+// Subscribe to store updates to automatically save the portfolio state
 store.subscribe(() => {
     const state = store.getState();
     if (state.portfolio) {

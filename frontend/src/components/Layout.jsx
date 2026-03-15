@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-
+// A wrapper component that provides consistent Header and Footer across pages
 const Layout = ({ children }) => {
     return (
         <div className="min-h-screen bg-background flex flex-col font-sans">

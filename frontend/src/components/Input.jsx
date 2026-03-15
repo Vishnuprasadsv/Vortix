@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
-
+// Reusable, styled text input component that supports optional labels and error messages
 const Input = ({ label, className, error, ...props }) => {
     return (
         <div className="flex flex-col gap-1 w-full">

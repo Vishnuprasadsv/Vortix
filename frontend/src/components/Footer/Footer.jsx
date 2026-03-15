@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaTwitter, FaLinkedin, FaInstagram, FaRegCopyright } from 'react-icons/fa';
 
+// Bottom page footer with copyright and social media links
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 

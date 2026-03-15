@@ -6,7 +6,7 @@ import { setUser, setError } from '../redux/slices/authSlice';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { motion } from 'framer-motion';
-
+// Page component handling user authentication (login)
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,6 +16,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Handle submission of the login form
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);

@@ -1,3 +1,4 @@
+// Validates that a string password meets security requirements: length, uppercase, number, symbol
 export const validatePassword = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
 

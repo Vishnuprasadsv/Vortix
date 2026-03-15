@@ -1,3 +1,4 @@
+// Simple hash function for consistent pseudo-random generation
 const getHash = (str) => {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -8,6 +9,7 @@ const getHash = (str) => {
     return Math.abs(hash);
 };
 
+// Generate an array of mock coordinate points for drawing a chart
 const generateData = (basePrice, volatility, points) => {
     let price = basePrice;
     const data = [];
@@ -29,6 +31,7 @@ const generateData = (basePrice, volatility, points) => {
     return data;
 };
 
+// Configuration function to determine bounds and volatility for mock chart data
 export const getCoinData = (coinId, timeRange, currentPrice = null) => {
     let points = 24;
     let volatility = 500;
@@ -49,6 +52,7 @@ export const getCoinData = (coinId, timeRange, currentPrice = null) => {
     return generateData(basePrice, volatility, points);
 };
 
+// Hardcoded placeholder data for Bitcoin and Ethereum if API fetch fails
 export const COINS = [
     {
         id: 'bitcoin', name: 'Bitcoin', symbol: 'btc', current_price: 88062.00, price_change_percentage_24h: -2.04, image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png', market_cap: 1770000000000,

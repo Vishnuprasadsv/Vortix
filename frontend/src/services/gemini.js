@@ -5,6 +5,7 @@ const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 let genAI;
 let model;
 
+// Initialize the Google Generative AI client using the provided API key
 const initGemini = () => {
     if (API_KEY) {
         console.log("Initializing Gemini with API Key...");
@@ -17,6 +18,7 @@ const initGemini = () => {
 
 initGemini();
 
+// Send a prompt and context to the Gemini AI model and get a response
 export const getGeminiResponse = async (prompt, contextData = "") => {
     if (!model) {
         initGemini();

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { buyAsset } from '../redux/slices/portfolioSlice';
 import BuyModal from './BuyModal';
 
+// Chart component displaying price history and comparison of coins
 const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRange, setTimeRange, chartType, setChartType, allCoins = [] }) => {
     const [chartData, setChartData] = useState([]);
     const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
@@ -17,6 +18,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
     const dispatch = useDispatch();
 
+    // Fetch and format chart data whenever the selected coin, comparison coin, or time range changes
     useEffect(() => {
         if (!selectedCoin) return;
 
@@ -36,6 +38,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         }
     }, [selectedCoin, comparisonCoin, timeRange]);
 
+    // Dispatch buy action when user buys from the modal
     const handleBuy = (amount) => {
         dispatch(buyAsset({
             id: selectedCoin.id,
@@ -47,6 +50,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
         }));
     };
 
+    // Format timestamp for chart X-axis based on selected time range
     const formatXAxis = (tick) => {
         const date = new Date(tick);
         if (timeRange === '24H') return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -55,6 +59,7 @@ const ChartWidget = ({ selectedCoin, comparisonCoin, setComparisonCoin, timeRang
 
     const getCoinColor = (coin) => coin?.color || '#22c55e';
 
+    // Master render function for the actual Recharts component
     const renderChart = () => {
         const primaryColor = '#FF5F1F';
         const secondaryColor = '#ef4444';

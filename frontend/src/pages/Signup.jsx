@@ -8,6 +8,7 @@ import Input from '../components/Input';
 import { motion } from 'framer-motion';
 import { validatePassword } from '../utils/passwordValidation';
 
+// Page component handling new user registration and validation
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,6 +22,7 @@ const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Handle the complex signup flow: local validation, checking username, creating user, and auto-logging in
     const handleSignup = async (e) => {
         e.preventDefault();
         setLoading(true);

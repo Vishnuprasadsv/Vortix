@@ -3,6 +3,9 @@
 ## 🔗 Live Demo
 https://vortix-nine.vercel.app/
 
+## 🔗 GitHub Repository
+https://github.com/Vishnuprasadsv/Vortix.git
+
 ## 📖 Description
 Vortix is a modern, feature-rich cryptocurrency trading platform that provides real-time market data, portfolio management, and AI-powered trading insights. Built with React and powered by Google's Gemini AI, Vortix offers an intuitive interface for both novice and experienced crypto traders to track, analyze, and manage their digital assets with ease.
 
@@ -66,7 +69,7 @@ Vortix features an intelligent AI assistant powered by Google's Gemini AI:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/vortix.git
+git clone https://github.com/Vishnuprasadsv/Vortix.git
 ```
 
 2. **Navigate to project directory**

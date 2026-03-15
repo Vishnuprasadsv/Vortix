@@ -5,7 +5,7 @@ import { logout } from '../../redux/slices/authSlice';
 import { FaRobot, FaUserCircle } from 'react-icons/fa';
 import { Menu, X } from 'lucide-react';
 import VortixAIChat from '../VortixAIChat';
-
+// The main navigation bar displayed at the top of the application
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isChatOpen, setIsChatOpen] = useState(false);
 
+    // Handle user logout by clearing the token, Redux state, and redirecting
     const handleLogout = async () => {
         try {
             localStorage.removeItem('token');
@@ -31,6 +32,7 @@ const Header = () => {
         { name: 'Portfolio', path: '/portfolio' },
     ];
 
+    // Handlers to toggle mobile menu and AI chat panel visibility
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
     const toggleChat = () => setIsChatOpen(!isChatOpen);
 

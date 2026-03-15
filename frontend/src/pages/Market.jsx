@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { buyAsset, savePortfolioToDB } from '../redux/slices/portfolioSlice';
 import BuyModal from '../components/BuyModal';
 import Loader from '../components/Loader';
-
+// Comprehensive market page listing all available cryptocurrencies with details
 const Market = () => {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,6 +22,7 @@ const Market = () => {
 
     const dispatch = useDispatch();
 
+    // Fetch complete market data when the component mounts
     useEffect(() => {
         const getCoins = async () => {
             try {
@@ -37,6 +38,7 @@ const Market = () => {
         getCoins();
     }, []);
 
+    // Filter and sort coins based on search query and selected sort option
     const getSortedCoins = () => {
         let filtered = coins.filter(coin =>
             coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -66,6 +68,7 @@ const Market = () => {
         setIsBuyModalOpen(true);
     };
 
+    // Dispatch the buy action to Redux and sync with the database
     const handleBuyConfirm = (amount) => {
         if (!selectedCoinForBuy) return;
         dispatch(buyAsset({

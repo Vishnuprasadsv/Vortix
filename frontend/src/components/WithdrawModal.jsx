@@ -4,7 +4,7 @@ import { withdrawFunds, savePortfolioToDB } from '../redux/slices/portfolioSlice
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCheckCircle, FaUniversity, FaMobileAlt, FaArrowLeft, FaLock } from 'react-icons/fa';
 import { loginAPI } from '../services/api';
-
+// Multi-step modal for withdrawing funds, including amount entry, payment method, and security verification
 const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
     const [step, setStep] = useState(1);
     const [amount, setAmount] = useState('');
@@ -16,6 +16,7 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
+    // Reset modal state when opened
     useEffect(() => {
         if (isOpen) {
             setStep(1);
@@ -28,6 +29,7 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
 
     if (!isOpen) return null;
 
+    // Navigate to the next step in the modal flow
     const handleNextStep = () => {
         if (step === 2) {
             if (amount <= 0 || amount > totalBalance) {
@@ -46,6 +48,7 @@ const WithdrawModal = ({ isOpen, onClose, totalBalance }) => {
         setStep(4);
     };
 
+    // Final step: verify user's password and execute the withdrawal process
     const handleVerifyAndWithdraw = async () => {
         if (!password) {
             setPasswordError("Password is required");

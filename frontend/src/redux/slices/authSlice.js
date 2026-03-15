@@ -5,7 +5,7 @@ const initialState = {
     loading: false,   
     error: null,      
 };
-
+// Redux slice to manage user authentication state, loading status, and errors
 const authSlice = createSlice({
     name: 'auth',
     initialState,

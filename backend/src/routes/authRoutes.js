@@ -1,20 +1,21 @@
 import { Router } from "express";
-import {login, register, profile, checkUsername,updateProfile, updatePassword, uploadAvatar} from "../controllers/authController.js";
+import { login, register, profile, checkUsername, updateProfile, updatePassword, uploadAvatar } from "../controllers/authController.js";
 import { validateToken } from "../middleware/authMiddleware.js";
-import { upload } from "../config/cloudinary.js"; 
+import { upload } from "../config/cloudinary.js";
 
 const router = Router();
 
+// Public routes (No token required)
 router.get('/check-username/:username', checkUsername);
 router.post('/register', register);
 router.post('/login', login);
 
-
+// Protected routes (Require authentication token)
 router.get('/profile', validateToken, profile);
 router.put('/profile', validateToken, updateProfile);
 router.put('/profile/password', validateToken, updatePassword);
 
-
+// Uses multer 'upload.single' middleware to process single file uploads
 router.post('/profile/avatar', validateToken, upload.single('avatar'), uploadAvatar);
 
 export default router;

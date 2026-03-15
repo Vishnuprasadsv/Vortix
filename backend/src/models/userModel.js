@@ -1,12 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 
+// Define the schema (structure) for User accounts in the database
 const userSchema = new Schema({
     userName: {
         type: String,
         required: [true, "username is required"],
         minLength: 3,
         maxLength: 15,
-        trim: true,
+        trim: true, // Removes extra spaces
         unique: true
     },
     email: {
@@ -15,7 +16,7 @@ const userSchema = new Schema({
         minLength: 3,
         trim: true,
         unique: true,
-        lowercase: true,
+        lowercase: true, // Converts email to lowercase
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, "Please enter a valid email address"]
     },
     mobile: {
@@ -32,11 +33,12 @@ const userSchema = new Schema({
         minLength: 6
     },
     avatar_url: {
-        type: String,
+        type: String, // Store URL of uploaded profile picture
         default: ""
     }
 },
-    { timestamps: true }
+    { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
-export default mongoose.models['user'] || mongoose.model('user', userSchema);
+// Export the user model
+export default mongoose.models['user'] || mongoose.model('user', userSchema);

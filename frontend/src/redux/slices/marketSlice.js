@@ -5,7 +5,7 @@ const initialState = {
     loading: false,   
     error: null,      
 };
-
+// Redux slice to manage the master list of cryptocurrency market data
 const marketSlice = createSlice({
     name: 'market',
     initialState,

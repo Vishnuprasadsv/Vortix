@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
+// A reusable, animated toggle switch component
 const Toggle = ({ enabled, onChange }) => {
     return (
         <button

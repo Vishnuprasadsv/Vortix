@@ -4,6 +4,7 @@ import { X, ExternalLink } from 'lucide-react';
 import { FaBitcoin, FaEthereum } from 'react-icons/fa';
 import Button from './Button';
 
+// Helper to choose an icon or render a fallback letter based on the coin symbol
 const getIcon = (symbol, color) => {
     switch (symbol?.toUpperCase()) {
         case 'BTC': return <FaBitcoin className="text-orange-500 text-3xl" />;
@@ -12,6 +13,7 @@ const getIcon = (symbol, color) => {
     }
 }
 
+// Modal component for purchasing cryptocurrency
 const BuyModal = ({ isOpen, onClose, coin, onBuy }) => {
     const [amount, setAmount] = useState('');
     const [total, setTotal] = useState(0);
@@ -19,6 +21,7 @@ const BuyModal = ({ isOpen, onClose, coin, onBuy }) => {
 
     const price = coin?.current_price || coin?.price || 0;
 
+    // Reset modal state when it opens
     useEffect(() => {
         if (isOpen) {
             setAmount('');
@@ -27,6 +30,7 @@ const BuyModal = ({ isOpen, onClose, coin, onBuy }) => {
         }
     }, [isOpen]);
 
+    // Handle user typing the amount to buy, recalculating the total cost
     const handleAmountChange = (e) => {
         const val = e.target.value;
         if (isNaN(val)) return;
@@ -34,6 +38,7 @@ const BuyModal = ({ isOpen, onClose, coin, onBuy }) => {
         setTotal(parseFloat(val || 0) * price);
     };
 
+    // Handle the buy action with a simulated loading delay
     const handleBuy = async () => {
         if (!amount || parseFloat(amount) <= 0) return;
 

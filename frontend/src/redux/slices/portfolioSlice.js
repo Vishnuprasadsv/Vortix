@@ -7,7 +7,7 @@ const initialState = {
     status: 'idle',
     error: null
 };
-
+// Async thunk to fetch the user's portfolio from the backend database
 export const fetchPortfolioFromDB = createAsyncThunk(
     'portfolio/fetchPortfolio',
     async (_, { rejectWithValue }) => {
@@ -19,7 +19,7 @@ export const fetchPortfolioFromDB = createAsyncThunk(
         }
     }
 );
-
+// Async thunk to save the current Redux portfolio state up to the backend database
 export const savePortfolioToDB = createAsyncThunk(
     'portfolio/savePortfolio',
     async (_, { getState, rejectWithValue }) => {
@@ -38,7 +38,7 @@ export const savePortfolioToDB = createAsyncThunk(
         }
     }
 );
-
+// Redux slice managing the user's balances and assets
 const portfolioSlice = createSlice({
     name: 'portfolio',
     initialState,

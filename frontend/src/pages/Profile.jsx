@@ -10,6 +10,7 @@ import Input from '../components/Input';
 import { uploadAvatarAPI, updatePasswordAPI, updateProfileAPI } from '../services/api';
 import { validatePassword } from '../utils/passwordValidation';
 
+// Page component managing user settings, profile updates, avatar upload, and security configuration
 const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Profile = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [statusPopup, setStatusPopup] = useState({ show: false, type: '', message: '' });
 
+    // Handle saving the user's new password, including validation and API call
     const handleChangePassword = async () => {
         if (!newPassword || !confirmNewPassword || !currentPassword) {
             setStatusPopup({ show: true, type: 'error', message: "All fields are required" });
@@ -68,6 +70,7 @@ const Profile = () => {
         }
     };
 
+    // Toggle for the 2FA setting which opens a confirmation modal
     const handleTwoFactorToggle = (enable) => {
         if (!enable) {
             setTwoFactor(false);
@@ -122,6 +125,7 @@ const Profile = () => {
         accountType: accountType,
     };
 
+    // Log the user out and clear LocalStorage
     const handleLogout = async () => {
         try {
             localStorage.removeItem('token');
@@ -132,6 +136,7 @@ const Profile = () => {
         }
     };
 
+    // Save changes to email/mobile number via API
     const handleSaveChanges = async () => {
         if (!user) return;
         setLoading(true);
@@ -157,6 +162,7 @@ const Profile = () => {
         }
     };
 
+    // Upload a new avatar image to Cloudinary and update profile
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;

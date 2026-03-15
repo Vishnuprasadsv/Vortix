@@ -12,6 +12,7 @@ const getIcon = (symbol, color) => {
     }
 }
 
+// Modal component for selling cryptocurrency from the user's portfolio
 const SellModal = ({ isOpen, onClose, asset, onSell }) => {
     const [amount, setAmount] = useState('');
     const [total, setTotal] = useState(0);
@@ -26,6 +27,7 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
         }
     }, [isOpen]);
 
+    // Calculate the total estimated value of the sell order
     const calculateTotal = (val) => {
         const numVal = parseFloat(val);
         if (isNaN(numVal)) {
@@ -36,6 +38,7 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
         }
     };
 
+    // Handle user typing the amount to sell
     const handleAmountChange = (e) => {
         const val = e.target.value;
         if (isNaN(val) && val !== '.') return;
@@ -44,6 +47,7 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
         calculateTotal(val);
     };
 
+    // Handle clicking the "MAX" button to sell all available balance
     const handleMax = () => {
         if (!asset) return;
         const maxAmount = asset.amount;
@@ -51,6 +55,7 @@ const SellModal = ({ isOpen, onClose, asset, onSell }) => {
         calculateTotal(maxAmount);
     };
 
+    // Handle the sell action submission
     const handleSell = () => {
         if (!amount || parseFloat(amount) <= 0) return;
         if (parseFloat(amount) > asset.amount) {

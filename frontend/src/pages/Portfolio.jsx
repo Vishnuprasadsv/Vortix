@@ -9,6 +9,7 @@ import { COINS } from '../services/mockData';
 import SellModal from '../components/SellModal';
 import WithdrawModal from '../components/WithdrawModal';
 
+// Helper to render the appropriate icon or letter for a given crypto symbol
 const getIcon = (symbol, color) => {
     switch (symbol) {
         case 'BTC': return <FaBitcoin className="text-orange-500 text-2xl" />;
@@ -17,6 +18,7 @@ const getIcon = (symbol, color) => {
     }
 }
 
+// Page displaying the user's current crypto portfolio, balances, and assets
 const Portfolio = () => {
     const { totalBalance, assets } = useSelector((state) => state.portfolio);
     const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const Portfolio = () => {
     const [isSellModalOpen, setIsSellModalOpen] = useState(false);
     const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
+    // Fetch current mock prices on mount and dispatch to Redux to update portfolio values
     useEffect(() => {
         const prices = {};
         COINS.forEach(c => prices[c.id] = c.price);
@@ -36,6 +39,7 @@ const Portfolio = () => {
         setIsSellModalOpen(true);
     };
 
+    // Dispatch sell action to Redux and sync the updated portfolio to the database
     const handleConfirmSell = (amount) => {
         if (!selectedAsset) return;
         const currentPrice = selectedAsset.value / selectedAsset.amount;
