@@ -166,7 +166,7 @@ All components adapt seamlessly across different screen sizes, with optimized la
 ### 👤 Author
 Vishnu Prasad 
 - **GitHub**: [@Vishnuprasadsv]( https://github.com/Vishnuprasadsv )
-- **LinkedIn**: [Your Profile]( www.linkedin.com/in/vishnu-prasad-sv )
+- **LinkedIn**: [VISHNU PRASAD]( https://www.linkedin.com/in/vishnu-prasad-sv )
 - **Email**: vishnusvprasad@gmail.com
 
 ## 📄 License
