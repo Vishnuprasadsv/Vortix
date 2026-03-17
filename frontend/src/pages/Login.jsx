@@ -6,6 +6,7 @@ import { setUser, setError } from '../redux/slices/authSlice';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { motion } from 'framer-motion';
+import AnimatedBackground from '../components/AnimatedBackground';
 // Page component handling user authentication (login)
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -40,7 +41,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-primary/10 via-background to-background animate-pulse-slow pointer-events-none"></div>
+            <AnimatedBackground />
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
