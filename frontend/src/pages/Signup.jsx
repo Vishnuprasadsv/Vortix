@@ -84,8 +84,9 @@ const Signup = () => {
 
         } catch (error) {
             console.error("Signup Error:", error);
-            setLocalError(error.message);
-            dispatch(setError(error.message));
+            const errorMessage = error.response?.data?.error || error.response?.data?.msg || error.message;
+            setLocalError(errorMessage);
+            dispatch(setError(errorMessage));
             setLoading(false);
         }
     };
@@ -134,7 +135,9 @@ const Signup = () => {
                         <Input
                             label="Mobile Number"
                             type="tel"
-                            placeholder="+91 98765 43210"
+                            placeholder="9876543210"
+                            pattern="[0-9]{10}"
+                            title="Please enter a valid 10-digit mobile number"
                             value={mobile}
                             onChange={(e) => setMobile(e.target.value)}
                             required
@@ -153,6 +156,7 @@ const Signup = () => {
                             placeholder="••••••••"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            hideToggle={true}
                             required
                         />
 

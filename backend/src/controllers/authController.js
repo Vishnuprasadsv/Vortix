@@ -73,7 +73,10 @@ const register = async (req, res) => {
 
         res.status(201).json({ msg: "user created successfully", user: newUser })
     } catch (error) {
-        console.log(error.message);
+        console.log("Registration Error:", error.message);
+        if (error.name === 'ValidationError' || error.code === 11000) {
+            return res.status(400).json({ msg: "Validation Error", error: error.message });
+        }
         res.status(500).json({ msg: "error while adding data", error: error.message })
     }
 }
